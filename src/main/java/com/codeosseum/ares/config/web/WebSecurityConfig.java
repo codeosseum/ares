@@ -1,19 +1,32 @@
 package com.codeosseum.ares.config.web;
 
 import com.codeosseum.ares.config.web.Endpoints.Paths;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         this.configureRequestAccess(http)
             .configureLogin(http)
             .configureLogout(http);
+    }
+
+    @Override
+    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+                .passwordEncoder(passwordEncoder)
+                .withUser("user").password(passwordEncoder.encode("1234")).roles("USER");
     }
 
     private WebSecurityConfig configureRequestAccess(final HttpSecurity http) throws Exception {
