@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.codeosseum</groupId>
+    <artifactId>ares</artifactId>
+    <version>0.1.0</version>
+
+    <name>Codeosseum Ares</name>
+    <description>Monolithuc web server for Codeosseum.</description>
+
+    <organization>
+        <name>Codeosseum</name>
+        <url>http://codeosseum.com</url>
+    </organization>
+
+    <inceptionYear>2018</inceptionYear>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
+
+        <!-- PLUGIN VERSIONS -->
+        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
