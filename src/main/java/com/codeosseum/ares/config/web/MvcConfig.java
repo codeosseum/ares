@@ -16,6 +16,7 @@ public class MvcConfig implements WebMvcConfigurer {
     static {
         viewToPathMapping.put(Paths.HOME, Views.HOME);
         viewToPathMapping.put(Paths.LOGIN, Views.LOGIN);
+        viewToPathMapping.put(Paths.Game.HOME, Views.Game.HOME);
     }
 
     @Override
