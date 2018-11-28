@@ -3,3 +3,13 @@
 [![CircleCI](https://circleci.com/gh/codeosseum/ares.svg?style=svg)](https://circleci.com/gh/codeosseum/ares)
 
 Monolithic web server for Codeosseum.
+
+## Features
+
+  - [ ] Login/Registration
+  - [ ] Game server (miles) management
+  - [ ] Matchmaking
+  - [ ] Match event handling
+  - [ ] Fault Seeding mode setup
+  - [ ] Statistics pages
+  - [ ] Admin pages
