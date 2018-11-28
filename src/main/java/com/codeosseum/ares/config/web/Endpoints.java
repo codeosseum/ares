@@ -6,6 +6,7 @@ package com.codeosseum.ares.config.web;
 public final class Endpoints {
     public static final class Paths {
         public static final String HOME = "/";
+        public static final String LOGIN = "/login";
 
         private Paths() {
             // Cannot be constructed.
@@ -14,6 +15,7 @@ public final class Endpoints {
 
     public static final class Views {
         public static final String HOME = "home";
+        public static final String LOGIN = "login";
 
         private Views() {
             // Cannot be constructed.
