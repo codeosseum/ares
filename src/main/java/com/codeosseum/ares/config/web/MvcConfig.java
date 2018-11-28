@@ -3,6 +3,7 @@ package com.codeosseum.ares.config.web;
 import com.codeosseum.ares.config.web.Endpoints.Paths;
 import com.codeosseum.ares.config.web.Endpoints.Views;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -11,6 +12,8 @@ import java.util.Map;
 
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
+    private static final String PUBLIC_RESOURCES_LOCATION = "classpath:/public/";
+
     private static final Map<String, String> viewToPathMapping = new LinkedHashMap<>();
 
     static {
@@ -22,5 +25,10 @@ public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(final ViewControllerRegistry registry) {
         viewToPathMapping.forEach((path, view) -> registry.addViewController(path).setViewName(view));
+    }
+
+    @Override
+    public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/**").addResourceLocations(PUBLIC_RESOURCES_LOCATION);
     }
 }

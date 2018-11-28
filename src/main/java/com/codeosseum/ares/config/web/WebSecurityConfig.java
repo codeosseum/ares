@@ -2,12 +2,16 @@ package com.codeosseum.ares.config.web;
 
 import com.codeosseum.ares.config.web.Endpoints.Paths;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.StaticResourceLocation;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import static org.springframework.boot.autoconfigure.security.StaticResourceLocation.WEB_JARS;
 
 @Configuration
 @EnableWebSecurity
@@ -31,6 +35,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private WebSecurityConfig configureRequestAccess(final HttpSecurity http) throws Exception {
         http.authorizeRequests()
+            .requestMatchers(PathRequest.toStaticResources().atCommonLocations().excluding(WEB_JARS))
+                .permitAll()
             .antMatchers(Paths.HOME, Paths.LOGIN)
                 .permitAll()
             .antMatchers(Paths.Game.HOME)
