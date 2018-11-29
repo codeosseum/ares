@@ -1,4 +1,4 @@
-package com.codeosseum.ares.config.web;
+package com.codeosseum.ares.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

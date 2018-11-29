@@ -1,8 +1,7 @@
-package com.codeosseum.ares.config.web;
+package com.codeosseum.ares.security.config;
 
 import com.codeosseum.ares.config.web.Endpoints.Paths;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.StaticResourceLocation;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -41,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
             .antMatchers(Paths.HOME, Paths.LOGIN, Paths.REGISTRATION)
                 .permitAll()
-            .antMatchers(Paths.Api.REGISTRATION)
+            .antMatchers(Paths.Api.REGISTRATION, "/api/event")
                 .permitAll()
             .antMatchers(Paths.Game.HOME)
                 .authenticated()
