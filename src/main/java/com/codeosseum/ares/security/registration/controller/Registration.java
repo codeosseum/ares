@@ -2,13 +2,13 @@ package com.codeosseum.ares.security.registration.controller;
 
 import com.codeosseum.ares.security.registration.constraint.UniqueEmail;
 import com.codeosseum.ares.security.registration.constraint.UniqueUsername;
-import lombok.Data;
+import lombok.Value;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@Data
+@Value
 public final class Registration {
     @NotNull
     @UniqueUsername

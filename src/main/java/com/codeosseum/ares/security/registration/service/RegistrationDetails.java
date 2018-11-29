@@ -1,9 +1,9 @@
 package com.codeosseum.ares.security.registration.service;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Value;
 
-@Data
+@Value
 @Builder
 public final class RegistrationDetails {
     private final String username;
