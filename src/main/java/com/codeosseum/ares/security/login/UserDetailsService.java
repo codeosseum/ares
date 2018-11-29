@@ -1,7 +1,6 @@
 package com.codeosseum.ares.security.login;
 
 import com.codeosseum.ares.user.UserRepository;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
