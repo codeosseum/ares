@@ -1,4 +1,4 @@
-package com.codeosseum.ares.config.web;
+package com.codeosseum.ares.web;
 
 /**
  * Utility class storing path and view names used throughout the application.

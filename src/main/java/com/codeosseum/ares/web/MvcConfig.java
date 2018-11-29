@@ -1,7 +1,7 @@
-package com.codeosseum.ares.config.web;
+package com.codeosseum.ares.web;
 
-import com.codeosseum.ares.config.web.Endpoints.Paths;
-import com.codeosseum.ares.config.web.Endpoints.Views;
+import com.codeosseum.ares.web.Endpoints.Paths;
+import com.codeosseum.ares.web.Endpoints.Views;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
