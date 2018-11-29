@@ -25,6 +25,8 @@ public final class Paths {
 
         public static final String REGISTRATION = PREFIX + "/registration";
 
+        public static final String EVENT = PREFIX + "/event";
+
         private Api() {
             // Cannot be constructed.
         }
