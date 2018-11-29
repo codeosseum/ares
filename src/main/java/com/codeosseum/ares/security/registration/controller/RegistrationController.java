@@ -5,6 +5,7 @@ import com.codeosseum.ares.security.registration.service.RegistrationDetails;
 import com.codeosseum.ares.security.registration.service.RegistrationFailedException;
 import com.codeosseum.ares.security.registration.service.RegistrationService;
 import com.codeosseum.ares.security.util.AuthenticationService;
+import com.codeosseum.ares.web.Paths;
 import com.codeosseum.ares.web.Views;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
 
 @Controller
 public class RegistrationController {
-    private static final String REDIRECT_TO_GAME_HOME = "redirect:" + Endpoints.Paths.Game.HOME;
+    private static final String REDIRECT_TO_GAME_HOME = "redirect:" + Paths.Game.HOME;
 
     private final AuthenticationService authenticationService;
 
@@ -33,12 +34,12 @@ public class RegistrationController {
         this.registrationService = registrationService;
     }
 
-    @GetMapping(Endpoints.Paths.REGISTRATION)
+    @GetMapping(Paths.REGISTRATION)
     public String getRegistrationView() {
         return authenticationService.hasAuthenticatedUser() ? REDIRECT_TO_GAME_HOME : Views.REGISTRATION;
     }
 
-    @PostMapping(Endpoints.Paths.Api.REGISTRATION)
+    @PostMapping(Paths.Api.REGISTRATION)
     @ResponseBody
     public ResponseEntity registerUser(@RequestBody @Valid final Registration registration, final BindingResult bindingResult) {
         if (isFormValid(bindingResult)) {

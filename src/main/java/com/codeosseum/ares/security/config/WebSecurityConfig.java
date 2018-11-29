@@ -1,6 +1,6 @@
 package com.codeosseum.ares.security.config;
 
-import com.codeosseum.ares.web.Endpoints.Paths;
+import com.codeosseum.ares.web.Paths;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Configuration;
