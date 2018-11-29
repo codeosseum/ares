@@ -1,6 +1,5 @@
 package com.codeosseum.ares.security.registration.controller;
 
-import com.codeosseum.ares.web.Endpoints;
 import com.codeosseum.ares.security.registration.service.RegistrationDetails;
 import com.codeosseum.ares.security.registration.service.RegistrationFailedException;
 import com.codeosseum.ares.security.registration.service.RegistrationService;
