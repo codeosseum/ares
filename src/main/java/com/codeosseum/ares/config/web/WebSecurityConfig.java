@@ -39,10 +39,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations().excluding(WEB_JARS))
                 .permitAll()
-            .antMatchers(Paths.HOME, Paths.LOGIN)
+            .antMatchers(Paths.HOME, Paths.LOGIN, Paths.REGISTRATION)
+                .permitAll()
+            .antMatchers(Paths.Api.REGISTRATION)
                 .permitAll()
             .antMatchers(Paths.Game.HOME)
-                .authenticated();
+                .authenticated()
+            .and()
+                .csrf().disable();
 
         return this;
     }
