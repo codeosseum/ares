@@ -39,25 +39,7 @@ public final class Endpoints {
         }
     }
 
-    public static final class Views {
-        public static final String HOME = "home";
-        public static final String LOGIN = "login";
-        public static final String REGISTRATION = "registration";
 
-        public static final class Game {
-            private static final String PREFIX = "game/";
-
-            public static final String HOME = PREFIX + "home";
-
-            private Game() {
-                // Cannot be constructed.
-            }
-        }
-
-        private Views() {
-            // Cannot be constructed.
-        }
-    }
 
     private Endpoints() {
         // Cannot be constructed.
