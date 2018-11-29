@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD})
-@Constraint(validatedBy = UniqueEmailValidator.class)
+@Constraint(validatedBy = UniqueUsernameValidator.class)
 public @interface UniqueUsername {
     String message() default "UNIQUE_USERNAME_CONSTRAINT_VIOLATION";
 
