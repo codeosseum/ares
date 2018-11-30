@@ -40,6 +40,7 @@
         <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
 
         <!-- DEPENDENCY VERSIONS -->
+        <eligo.version>0.1.0</eligo.version>
         <lombok.version>1.18.4</lombok.version>
         <guava.version>27.0.1-jre</guava.version>
 
@@ -49,6 +50,12 @@
 
 
     <dependencies>
+        <dependency>
+            <groupId>com.codeosseum</groupId>
+            <artifactId>eligo</artifactId>
+            <version>${eligo.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
