@@ -6,8 +6,8 @@ Monolithic web server for Codeosseum.
 
 ## Features
 
-  - [ ] Login/Registration
-  - [ ] Game server (miles) management
+  - [X] Login/Registration
+  - [X] Game server (miles) management
   - [ ] Matchmaking
   - [ ] Match event handling
   - [ ] Fault Seeding mode setup
