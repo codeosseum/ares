@@ -1,6 +1,7 @@
 package com.codeosseum.ares.servermanagement.config;
 
 import com.codeosseum.ares.eventbus.registry.EventRegistry;
+import com.codeosseum.ares.servermanagement.registration.DeregistrationEvent;
 import com.codeosseum.ares.servermanagement.registration.RegistrationEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -15,5 +16,6 @@ public class RegistrationConfig {
     @PostConstruct
     public void registerEvents() {
         eventRegistry.registerEvent(RegistrationEvent.IDENTIFIER, RegistrationEvent.class);
+        eventRegistry.registerEvent(DeregistrationEvent.IDENTIFIER, DeregistrationEvent.class);
     }
 }
