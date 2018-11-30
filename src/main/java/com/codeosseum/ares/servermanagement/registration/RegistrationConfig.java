@@ -1,4 +1,4 @@
-package com.codeosseum.ares.servermanagement.config;
+package com.codeosseum.ares.servermanagement.registration;
 
 import com.codeosseum.ares.eventbus.registry.EventRegistry;
 import com.codeosseum.ares.servermanagement.registration.DeregistrationEvent;

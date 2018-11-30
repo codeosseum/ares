@@ -1,4 +1,4 @@
-package com.codeosseum.ares.servermanagement.config;
+package com.codeosseum.ares.servermanagement.heartbeat;
 
 import com.codeosseum.ares.eventbus.dispatch.EventDispatcher;
 import com.codeosseum.ares.eventbus.registry.EventRegistry;
