@@ -43,8 +43,13 @@ public class HeartbeatConfig {
     }
 
     @PostConstruct
-    public void registerEvent() {
+    public void registerEvents() {
         eventRegistry.registerEvent(HeartbeatEvent.IDENTIFIER, HeartbeatEvent.class);
+    }
+
+    @PostConstruct
+    public void registerConsumers() {
+        eventDispatcher.registerConsumer(reaperHeartbeatConsumer());
     }
 
     private ScheduledExecutorService scheduledExecutorService() {

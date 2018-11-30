@@ -9,10 +9,8 @@ import org.springframework.stereotype.Component;
 public class DeregistrationEventConsumer implements EventConsumer<DeregistrationEvent> {
     private final ServerRegistry serverRegistry;
 
-    public DeregistrationEventConsumer(final EventDispatcher eventDispatcher, final ServerRegistry serverRegistry) {
+    public DeregistrationEventConsumer(final ServerRegistry serverRegistry) {
         this.serverRegistry = serverRegistry;
-
-        eventDispatcher.registerConsumer(this);
     }
 
     @Override
