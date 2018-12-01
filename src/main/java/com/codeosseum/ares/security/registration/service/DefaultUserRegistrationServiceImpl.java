@@ -4,18 +4,16 @@ import com.codeosseum.ares.user.Role;
 import com.codeosseum.ares.user.User;
 import com.codeosseum.ares.user.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.Objects;
 
-@Service
-public class DefaultRegistrationServiceImpl implements RegistrationService {
+public class DefaultUserRegistrationServiceImpl implements UserRegistrationService {
     private final UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
 
-    public DefaultRegistrationServiceImpl(final UserRepository userRepository, final PasswordEncoder passwordEncoder) {
+    public DefaultUserRegistrationServiceImpl(final UserRepository userRepository, final PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }

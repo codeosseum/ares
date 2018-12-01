@@ -2,7 +2,7 @@ package com.codeosseum.ares.security.registration.controller;
 
 import com.codeosseum.ares.security.registration.service.RegistrationDetails;
 import com.codeosseum.ares.security.registration.service.RegistrationFailedException;
-import com.codeosseum.ares.security.registration.service.RegistrationService;
+import com.codeosseum.ares.security.registration.service.UserRegistrationService;
 import com.codeosseum.ares.security.util.AuthenticationService;
 import com.codeosseum.ares.web.Paths;
 import com.codeosseum.ares.web.Views;
@@ -26,11 +26,11 @@ public class RegistrationController {
 
     private final AuthenticationService authenticationService;
 
-    private final RegistrationService registrationService;
+    private final UserRegistrationService userRegistrationService;
 
-    public RegistrationController(final AuthenticationService authenticationService, final RegistrationService registrationService) {
+    public RegistrationController(final AuthenticationService authenticationService, final UserRegistrationService userRegistrationService) {
         this.authenticationService = authenticationService;
-        this.registrationService = registrationService;
+        this.userRegistrationService = userRegistrationService;
     }
 
     @GetMapping(Paths.REGISTRATION)
@@ -67,7 +67,7 @@ public class RegistrationController {
                 .password(registration.getPassword())
                 .build();
 
-        registrationService.register(registrationDetails);
+        userRegistrationService.register(registrationDetails);
     }
 
     private static final class RegistrationFailureResponse {
