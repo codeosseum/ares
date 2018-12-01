@@ -15,6 +15,8 @@ public final class Paths {
 
         public static final String HOME = PREFIX;
 
+        public static final String MATCHMAKING = PREFIX + "/matchmaking";
+
         private Game() {
             // Cannot be constructed.
         }

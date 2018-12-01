@@ -10,6 +10,8 @@ public final class Views {
 
         public static final String HOME = PREFIX + "home";
 
+        public static final String MATCHMAKING = PREFIX + "/matchmaking";
+
         private Game() {
             // Cannot be constructed.
         }
