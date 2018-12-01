@@ -124,6 +124,14 @@
 
     <repositories>
         <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>bintray-codeosseum-repo</id>
+            <name>Codeosseum Bintray Repo</name>
+            <url>https://dl.bintray.com/codeosseum/repo</url>
+        </repository>
+        <repository>
             <id>spring-releases</id>
             <name>Spring Releases</name>
             <url>https://repo.spring.io/libs-release</url>
