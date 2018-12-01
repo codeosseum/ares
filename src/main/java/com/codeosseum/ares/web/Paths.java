@@ -29,6 +29,8 @@ public final class Paths {
 
         public static final String EVENT = PREFIX + "/event";
 
+        public static final String MATCHMAKING = PREFIX + "/matchmaking";
+
         private Api() {
             // Cannot be constructed.
         }
