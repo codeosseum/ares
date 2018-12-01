@@ -3,12 +3,13 @@ package com.codeosseum.ares.player;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
-public class DefaultPlayerCreationServiceImpl implements PlayerCreationService {
+public class DefaultPlayerServiceImpl implements PlayerService {
     private final PlayerRepository playerRepository;
 
-    public DefaultPlayerCreationServiceImpl(PlayerRepository playerRepository) {
+    public DefaultPlayerServiceImpl(PlayerRepository playerRepository) {
         this.playerRepository = playerRepository;
     }
 
@@ -21,6 +22,11 @@ public class DefaultPlayerCreationServiceImpl implements PlayerCreationService {
         } catch (Exception e) {
             throw new PlayerCreationFailedException(username, e);
         }
+    }
+
+    @Override
+    public Optional<Player> findPlayerByUsername(final String username) {
+        return playerRepository.findPlayerByUsername(Objects.requireNonNull(username));
     }
 
     private Player emptyPlayerWithUsername(final String username) {
