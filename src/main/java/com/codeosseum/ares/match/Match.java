@@ -19,6 +19,8 @@ public class Match {
 
     private List<String> players;
 
+    private Mode mode;
+
     private Status status;
 
     private URI serverUri;
