@@ -11,14 +11,14 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 @Controller
-public class MatchmakingController {
+public class TwoPlayerFaultSeedingMatchmakingController {
     private static final String MODE_PATH = "/two-player-fault-seeding";
 
     private final AuthenticationService authenticationService;
 
-    private final MatchmakingService matchmakingService;
+    private final TwoPlayerFaultSeedingMatchmakingService matchmakingService;
 
-    public MatchmakingController(AuthenticationService authenticationService, MatchmakingService matchmakingService) {
+    public TwoPlayerFaultSeedingMatchmakingController(AuthenticationService authenticationService, TwoPlayerFaultSeedingMatchmakingService matchmakingService) {
         this.authenticationService = authenticationService;
         this.matchmakingService = matchmakingService;
     }
@@ -31,7 +31,7 @@ public class MatchmakingController {
 
         authenticationService.getAuthenticatedUser()
                 .map(User::getUsername)
-                .map(MatchmakingRequest::new)
+                .map(TwoPlayerFaultSeedingMatchmakingRequest::new)
                 .ifPresent(matchmakingService::addToMatchmaking);
 
         return new ResponseEntity(NO_CONTENT);

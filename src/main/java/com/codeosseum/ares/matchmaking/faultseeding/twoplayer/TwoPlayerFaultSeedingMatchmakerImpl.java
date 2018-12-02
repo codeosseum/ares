@@ -13,31 +13,31 @@ import java.util.stream.Collectors;
 
 import static com.codeosseum.eligo.matchmaker.decisiontree.BucketMatcher.hasAtLeast;
 
-public class MatchmakerImpl extends EligoMatchmaker<MatchmakingProfile, MatchConfiguration> {
+public class TwoPlayerFaultSeedingMatchmakerImpl extends EligoMatchmaker<TwoPlayerFaultSeedingMatchmakingProfile, TwoPlayerFaultSeedingMatchConfiguration> {
     private static final int PLAYER_COUNT = 2;
 
-    private static Matchmaker<MatchmakingProfile, MatchConfiguration> eligoMatchmakerFactory() {
-        final MatchFunction<MatchmakingProfile, MatchConfiguration> matchFunction =
-                MatchFunction.<MatchmakingProfile, MatchConfiguration>builder()
+    private static Matchmaker<TwoPlayerFaultSeedingMatchmakingProfile, TwoPlayerFaultSeedingMatchConfiguration> eligoMatchmakerFactory() {
+        final MatchFunction<TwoPlayerFaultSeedingMatchmakingProfile, TwoPlayerFaultSeedingMatchConfiguration> matchFunction =
+                MatchFunction.<TwoPlayerFaultSeedingMatchmakingProfile, TwoPlayerFaultSeedingMatchConfiguration>builder()
                     .predicate(hasAtLeast(2))
                     .supplier(picker -> {
                         final List<String> usernames = picker.pickMany(PLAYER_COUNT).stream()
-                                .map(MatchmakingProfile::getUsername)
+                                .map(TwoPlayerFaultSeedingMatchmakingProfile::getUsername)
                                 .collect(Collectors.toList());
 
-                        return new MatchConfiguration(usernames);
+                        return new TwoPlayerFaultSeedingMatchConfiguration(usernames);
                     })
                     .build();
 
-        final Classifier<MatchmakingProfile> classifier = Classifiers.openInterval(Collections.emptyList(), MatchmakingProfile::getRank);
+        final Classifier<TwoPlayerFaultSeedingMatchmakingProfile> classifier = Classifiers.openInterval(Collections.emptyList(), TwoPlayerFaultSeedingMatchmakingProfile::getRank);
 
-        return Matchmakers.<MatchmakingProfile, MatchConfiguration>decisionTree()
+        return Matchmakers.<TwoPlayerFaultSeedingMatchmakingProfile, TwoPlayerFaultSeedingMatchConfiguration>decisionTree()
                 .matchFunction(matchFunction)
                 .classifier(classifier)
                 .build();
     }
 
-    public MatchmakerImpl() {
+    public TwoPlayerFaultSeedingMatchmakerImpl() {
         super(eligoMatchmakerFactory());
     }
 }
