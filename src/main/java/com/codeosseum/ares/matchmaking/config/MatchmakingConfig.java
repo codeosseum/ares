@@ -1,4 +1,4 @@
-package com.codeosseum.ares.config;
+package com.codeosseum.ares.matchmaking.config;
 
 import com.codeosseum.ares.matchmaking.foundation.matchmaker.MatchConfiguration;
 import com.codeosseum.ares.matchmaking.foundation.matchmaker.Matchmaker;
