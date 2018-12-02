@@ -17,6 +17,8 @@ public class EventAwareServerNotificator implements EventConsumer<MatchPersisted
     public EventAwareServerNotificator(RestTemplate serverCommunicator, EventDispatcher eventDispatcher) {
         this.serverCommunicator = serverCommunicator;
         this.eventDispatcher = eventDispatcher;
+
+        eventDispatcher.registerConsumer(this);
     }
 
     @Override
