@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-public abstract class EligoMatchmaker<P extends MatchmakingProfile, M extends MatchmakingResult> implements Matchmaker<P, M> {
+public abstract class EligoMatchmaker<P extends MatchmakingProfile, M extends MatchConfiguration> implements Matchmaker<P, M> {
     private final com.codeosseum.eligo.matchmaker.Matchmaker<P, M> eligoMatchmaker;
 
     private final Map<String, P> profileMapping;

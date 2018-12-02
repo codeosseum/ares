@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Value
 public class AssignedMatch {
-    private final MatchmakingResult matchmakingResult;
+    private final MatchConfiguration matchConfiguration;
 
     private final Server assignedServer;
 

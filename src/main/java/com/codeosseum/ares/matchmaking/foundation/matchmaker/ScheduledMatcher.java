@@ -17,11 +17,11 @@ public class ScheduledMatcher {
 
     private final EventDispatcher eventDispatcher;
 
-    private final List<Matchmaker<? extends MatchmakingProfile, ? extends MatchmakingResult>> matchmakers;
+    private final List<Matchmaker<? extends MatchmakingProfile, ? extends MatchConfiguration>> matchmakers;
 
     public ScheduledMatcher(ServerAllocator serverAllocator,
                             EventDispatcher eventDispatcher,
-                            List<Matchmaker<? extends MatchmakingProfile, ? extends MatchmakingResult>> matchmakers,
+                            List<Matchmaker<? extends MatchmakingProfile, ? extends MatchConfiguration>> matchmakers,
                             ScheduledExecutorService executorService) {
         this.serverAllocator = serverAllocator;
         this.eventDispatcher = eventDispatcher;
@@ -33,14 +33,14 @@ public class ScheduledMatcher {
     private void checkForMatches() {
         final List<Server> availableServers = serverAllocator.findAllAvailableServers();
 
-        final List<MatchmakingResult> possibleMatches = createAllPossibleMatches();
+        final List<MatchConfiguration> possibleMatches = createAllPossibleMatches();
 
         final int creatableMatchCount = Math.min(availableServers.size(), possibleMatches.size());
 
         final Set<String> assignedPlayers = new HashSet<>();
 
         for (int i = 0; i < creatableMatchCount; ++i) {
-            final MatchmakingResult match = possibleMatches.get(i);
+            final MatchConfiguration match = possibleMatches.get(i);
             final Server server = availableServers.remove(i);
 
             if (allPlayersAreUnassigned(assignedPlayers, match)) {
@@ -51,19 +51,19 @@ public class ScheduledMatcher {
         }
     }
 
-    private List<MatchmakingResult> createAllPossibleMatches() {
+    private List<MatchConfiguration> createAllPossibleMatches() {
         return matchmakers.stream()
                 .map(Matchmaker::makeMatches)
                 .flatMap(Set::stream)
                 .collect(Collectors.toList());
     }
 
-    private boolean allPlayersAreUnassigned(final Set<String> assignedPlayers, final MatchmakingResult match) {
+    private boolean allPlayersAreUnassigned(final Set<String> assignedPlayers, final MatchConfiguration match) {
         return match.getPlayers().stream()
                 .noneMatch(assignedPlayers::contains);
     }
 
-    private void publishMatch(final MatchmakingResult match, final Server server) {
+    private void publishMatch(final MatchConfiguration match, final Server server) {
         final AssignedMatch assignedMatch = new AssignedMatch(match, server, LocalDateTime.now());
 
         final MatchAssignedEvent event = new MatchAssignedEvent(assignedMatch);
