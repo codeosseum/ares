@@ -31,6 +31,8 @@ public final class Paths {
 
         public static final String MATCHMAKING = PREFIX + "/matchmaking";
 
+        public static final String MATCHMAKING_SUBPATHS = MATCHMAKING + "/**";
+
         private Api() {
             // Cannot be constructed.
         }

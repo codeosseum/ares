@@ -42,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
             .antMatchers(Paths.Api.REGISTRATION, "/api/event")
                 .permitAll()
-            .antMatchers(Paths.Game.HOME, Paths.Game.MATCHMAKING)
+            .antMatchers(Paths.Game.HOME, Paths.Game.MATCHMAKING, Paths.Api.MATCHMAKING, Paths.Api.MATCHMAKING_SUBPATHS)
                 .authenticated()
             .and()
                 .csrf().disable();
