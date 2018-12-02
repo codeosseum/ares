@@ -3,6 +3,7 @@ package com.codeosseum.ares.matchmaking.foundation.config;
 import com.codeosseum.ares.eventbus.dispatch.EventDispatcher;
 import com.codeosseum.ares.eventbus.registry.EventRegistry;
 import com.codeosseum.ares.matchmaking.foundation.matchmaker.MatchAssignedEvent;
+import com.codeosseum.ares.matchmaking.foundation.persistence.MatchPersistedEvent;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
@@ -21,5 +22,6 @@ public class EventConfig {
     @PostConstruct
     public void registerEvents() {
         eventRegistry.registerEvent(MatchAssignedEvent.IDENTIFIER, MatchAssignedEvent.class);
+        eventRegistry.registerEvent(MatchPersistedEvent.IDENTIFIER, MatchPersistedEvent.class);
     }
 }
