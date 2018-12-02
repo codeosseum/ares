@@ -6,7 +6,7 @@ import java.util.Optional;
 
 @Service
 public class MatchmakerFacade {
-    public Optional<MatchmakingResult> getMatchForPlayer(final String username) {
+    public Optional<AssignedMatch> getMatchForPlayer(final String username) {
         return Optional.empty();
     }
 
