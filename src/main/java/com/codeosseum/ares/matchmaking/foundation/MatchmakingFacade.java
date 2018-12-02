@@ -1,10 +1,10 @@
 package com.codeosseum.ares.matchmaking.foundation;
 
-import com.codeosseum.ares.matchmaking.foundation.matchmaker.AssignedMatch;
 import com.codeosseum.ares.matchmaking.foundation.matchmaker.Matchmaker;
 import com.codeosseum.ares.matchmaking.foundation.matchmaker.MatchmakingProfile;
 import com.codeosseum.ares.matchmaking.foundation.matchmaker.MatchConfiguration;
 import com.codeosseum.ares.matchmaking.foundation.notificator.PlayerNotificator;
+import com.codeosseum.ares.matchmaking.foundation.persistence.PlayableMatch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ public class MatchmakingFacade {
     @Autowired
     private List<Matchmaker<? extends MatchmakingProfile, ? extends MatchConfiguration>> matchmakers;
 
-    public Optional<AssignedMatch> getMatchForPlayer(final String username) {
+    public Optional<PlayableMatch> getMatchForPlayer(final String username) {
         return playerNotificator.getMatchForPlayer(Objects.requireNonNull(username));
     }
 
