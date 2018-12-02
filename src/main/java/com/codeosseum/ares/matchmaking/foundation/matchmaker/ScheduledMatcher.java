@@ -1,7 +1,7 @@
 package com.codeosseum.ares.matchmaking.foundation.matchmaker;
 
 import com.codeosseum.ares.eventbus.dispatch.EventDispatcher;
-import com.codeosseum.ares.matchmaking.foundation.ServerAllocator;
+import com.codeosseum.ares.matchmaking.foundation.serverallocation.ServerAllocator;
 import com.codeosseum.ares.servermanagement.Server;
 
 import java.time.LocalDateTime;
@@ -66,7 +66,7 @@ public class ScheduledMatcher {
     private void publishMatch(final MatchmakingResult match, final Server server) {
         final AssignedMatch assignedMatch = new AssignedMatch(match, server, LocalDateTime.now());
 
-        final MatchMadeEvent event = new MatchMadeEvent(assignedMatch);
+        final MatchAssignedEvent event = new MatchAssignedEvent(assignedMatch);
 
         eventDispatcher.dispatchEvent(event);
     }
