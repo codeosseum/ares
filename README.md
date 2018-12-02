@@ -8,7 +8,7 @@ Monolithic web server for Codeosseum.
 
   - [X] Login/Registration
   - [X] Game server (miles) management
-  - [ ] Matchmaking
+  - [X] Matchmaking
   - [ ] Match event handling
   - [ ] Fault Seeding mode setup
   - [ ] Statistics pages
