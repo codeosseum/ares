@@ -1,6 +1,6 @@
 package com.codeosseum.ares.matchmaking.foundation.controller;
 
-import com.codeosseum.ares.matchmaking.foundation.matchmaker.MatchmakerFacade;
+import com.codeosseum.ares.matchmaking.foundation.MatchmakingFacade;
 import com.codeosseum.ares.security.util.AuthenticationService;
 import com.codeosseum.ares.user.User;
 import com.codeosseum.ares.web.Paths;
@@ -18,11 +18,11 @@ import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 public class MatchmakingController {
     private final AuthenticationService authenticationService;
 
-    private final MatchmakerFacade matchmakerFacade;
+    private final MatchmakingFacade matchmakingFacade;
 
-    public MatchmakingController(AuthenticationService authenticationService, MatchmakerFacade matchmakerFacade) {
+    public MatchmakingController(AuthenticationService authenticationService, MatchmakingFacade matchmakingFacade) {
         this.authenticationService = authenticationService;
-        this.matchmakerFacade = matchmakerFacade;
+        this.matchmakingFacade = matchmakingFacade;
     }
 
     @GetMapping(Paths.Game.MATCHMAKING)
@@ -38,7 +38,7 @@ public class MatchmakingController {
 
         return authenticationService.getAuthenticatedUser()
                 .map(User::getUsername)
-                .flatMap(matchmakerFacade::getMatchForPlayer)
+                .flatMap(matchmakingFacade::getMatchForPlayer)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> new ResponseEntity<>(NO_CONTENT));
     }
@@ -51,7 +51,7 @@ public class MatchmakingController {
 
         authenticationService.getAuthenticatedUser()
                 .map(User::getUsername)
-                .ifPresent(matchmakerFacade::removePlayerFromMatchmaking);
+                .ifPresent(matchmakingFacade::removePlayerFromMatchmaking);
 
         return new ResponseEntity(HttpStatus.OK);
     }
