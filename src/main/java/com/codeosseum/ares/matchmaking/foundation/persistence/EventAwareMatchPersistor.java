@@ -20,7 +20,7 @@ public class EventAwareMatchPersistor implements EventConsumer<MatchAssignedEven
         this.matchRepository = matchRepository;
         this.eventDispatcher = eventDispatcher;
 
-        eventDispatcher.registerConsumer(this);
+        eventDispatcher.registerConsumer(MatchAssignedEvent.class, this);
     }
 
     @Override

@@ -5,6 +5,8 @@ import com.codeosseum.ares.servermanagement.Server;
 import com.codeosseum.ares.servermanagement.registry.ServerRegistry;
 import org.springframework.stereotype.Component;
 
+import java.net.URI;
+
 @Component
 public class RegistrationEventConsumer implements EventConsumer<RegistrationEvent> {
     private final ServerRegistry serverRegistry;

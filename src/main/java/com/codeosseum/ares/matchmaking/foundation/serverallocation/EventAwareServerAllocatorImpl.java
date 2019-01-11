@@ -14,13 +14,13 @@ import java.util.stream.Collectors;
 public class EventAwareServerAllocatorImpl implements ServerAllocator {
     private final ServerRegistry serverRegistry;
 
-    private final Map<String, URI> takenServerMap;
+    private final Map<String, String> takenServerMap;
 
     public EventAwareServerAllocatorImpl(ServerRegistry serverRegistry, EventDispatcher eventDispatcher) {
         this.serverRegistry = serverRegistry;
         this.takenServerMap = new ConcurrentHashMap<>();
 
-        eventDispatcher.registerConsumer(this::consumeMatchPersistedEvent);
+        eventDispatcher.registerConsumer(MatchPersistedEvent.class, this::consumeMatchPersistedEvent);
     }
 
     @Override

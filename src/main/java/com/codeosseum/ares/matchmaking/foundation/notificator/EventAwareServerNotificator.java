@@ -18,12 +18,14 @@ public class EventAwareServerNotificator implements EventConsumer<MatchPersisted
         this.serverCommunicator = serverCommunicator;
         this.eventDispatcher = eventDispatcher;
 
-        eventDispatcher.registerConsumer(this);
+        eventDispatcher.registerConsumer(MatchPersistedEvent.class, this);
     }
 
     @Override
     public void accept(final MatchPersistedEvent event) {
-        final URI endpoint = event.getMatch().getServer().getUri().resolve(MATCH_PATH);
+        final URI baseUri = URI.create(event.getMatch().getServer().getUri());
+
+        final URI endpoint = baseUri.resolve(MATCH_PATH);
 
         try {
             serverCommunicator.put(endpoint, event.getMatch());

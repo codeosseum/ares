@@ -29,7 +29,7 @@ public class RegistrationConfig {
 
     @PostConstruct
     public void registerConsumers() {
-        eventDispatcher.registerConsumer(registrationEventConsumer);
-        eventDispatcher.registerConsumer(deregistrationEventConsumer);
+        eventDispatcher.registerConsumer(RegistrationEvent.class, registrationEventConsumer);
+        eventDispatcher.registerConsumer(DeregistrationEvent.class, deregistrationEventConsumer);
     }
 }

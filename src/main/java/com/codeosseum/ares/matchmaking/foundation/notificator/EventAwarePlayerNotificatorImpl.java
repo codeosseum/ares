@@ -15,7 +15,7 @@ public class EventAwarePlayerNotificatorImpl implements PlayerNotificator {
     public EventAwarePlayerNotificatorImpl(EventDispatcher eventDispatcher) {
         this.matchMap = new ConcurrentHashMap<>();
 
-        eventDispatcher.registerConsumer(this::consumeMatchMadeEvent);
+        eventDispatcher.registerConsumer(MatchPersistedEvent.class, this::consumeMatchMadeEvent);
     }
 
     @Override

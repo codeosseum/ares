@@ -10,6 +10,7 @@ import java.util.concurrent.Executors;
 
 @Configuration
 public class EventBusConfig {
+    // TODO: read from configuration
     private static final int EXECUTOR_THREAD_COUNT = 2;
 
     @Bean
