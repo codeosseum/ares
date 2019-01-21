@@ -43,6 +43,8 @@ public class ReaperHeartbeatConsumer implements EventConsumer<HeartbeatEvent> {
 
     @Override
     public void accept(final HeartbeatEvent heartbeatEvent) {
+        LOGGER.info("Received heartbeat from {}", heartbeatEvent.getServerIdentifier());
+
         heartbeatTimeMap.put(heartbeatEvent.getServerIdentifier(), LocalTime.now(clock));
     }
 
