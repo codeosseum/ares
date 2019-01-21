@@ -3,6 +3,8 @@ package com.codeosseum.ares.servermanagement.heartbeat;
 import com.codeosseum.ares.eventbus.dispatch.EventConsumer;
 import com.codeosseum.ares.servermanagement.registry.ServerRegistry;
 import lombok.Builder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Clock;
 import java.time.LocalTime;
@@ -15,6 +17,8 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 
 @Builder
 public class ReaperHeartbeatConsumer implements EventConsumer<HeartbeatEvent> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ReaperHeartbeatConsumer.class);
+
     private final ServerRegistry serverRegistry;
 
     private final ScheduledExecutorService scheduledExecutorService;
@@ -53,7 +57,13 @@ public class ReaperHeartbeatConsumer implements EventConsumer<HeartbeatEvent> {
                 .removeIf(entry -> {
                     final LocalTime lastHeartbeat = entry.getValue();
 
-                    return SECONDS.between(lastHeartbeat, checkTime) > timeoutSeconds;
+                    final boolean shouldRemove = SECONDS.between(lastHeartbeat, checkTime) > timeoutSeconds;
+
+                    if (shouldRemove) {
+                        LOGGER.info("Removing server because it's not sending heartbeats: {}", entry.getKey());
+                    }
+
+                    return shouldRemove;
                 });
     }
 }
