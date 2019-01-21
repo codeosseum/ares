@@ -1,6 +1,9 @@
 server:
   port: 8000
 
+logging.level.root: INFO
+logging.level.com.codeosseum.ares: DEBUG
+
 spring:
   data:
     mongodb:
