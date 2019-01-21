@@ -2,6 +2,8 @@ package com.codeosseum.ares.eventbus.mapper;
 
 import com.codeosseum.ares.eventbus.registry.EventRegistry;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -9,6 +11,7 @@ import java.util.Optional;
 
 @Service
 public class JacksonEventMapperImpl implements EventMapper {
+    private static final Logger LOGGER = LoggerFactory.getLogger(JacksonEventMapperImpl.class.getName());
     private final ObjectMapper eventMapperObjectMapper;
 
     private final EventRegistry eventRegistry;
@@ -23,6 +26,8 @@ public class JacksonEventMapperImpl implements EventMapper {
         return eventRegistry.getEventForIdentifier(Objects.requireNonNull(identifier))
                 .flatMap(type -> {
                     try {
+                        LOGGER.debug("Mapping to {}: {}", type, contents);
+
                         return Optional.of(eventMapperObjectMapper.readValue(contents, type));
                     } catch (Exception e){
                         return Optional.empty();
