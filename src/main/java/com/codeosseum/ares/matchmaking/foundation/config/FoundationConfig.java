@@ -3,7 +3,7 @@ package com.codeosseum.ares.matchmaking.foundation.config;
 import com.codeosseum.ares.eventbus.dispatch.EventDispatcher;
 import com.codeosseum.ares.eventbus.registry.EventRegistry;
 import com.codeosseum.ares.match.repository.MatchRepository;
-import com.codeosseum.ares.matchmaking.foundation.matchmaker.MatchAssignedEvent;
+import com.codeosseum.ares.matchmaking.foundation.matchmaker.*;
 import com.codeosseum.ares.matchmaking.foundation.notificator.EventAwarePlayerNotificatorImpl;
 import com.codeosseum.ares.matchmaking.foundation.notificator.EventAwareServerNotificator;
 import com.codeosseum.ares.matchmaking.foundation.notificator.PlayerNotificator;
@@ -18,6 +18,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 @Configuration
 public class FoundationConfig {
@@ -32,6 +35,9 @@ public class FoundationConfig {
 
     @Autowired
     private ServerRegistry serverRegistry;
+
+    @Autowired
+    private List<Matchmaker<? extends MatchmakingProfile, ? extends MatchConfiguration>> matchmakers;
 
     @Bean
     public PlayerNotificator playerNotificator() {
@@ -51,6 +57,13 @@ public class FoundationConfig {
     @Bean
     public ServerAllocator serverAllocator() {
         return new EventAwareServerAllocatorImpl(serverRegistry, eventDispatcher);
+    }
+
+    @Bean
+    public ScheduledMatcher scheduledMatcher() {
+        final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
+
+        return new ScheduledMatcher(serverAllocator(), eventDispatcher, matchmakers, executorService);
     }
 
     @PostConstruct
