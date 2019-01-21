@@ -6,6 +6,8 @@ import com.codeosseum.eligo.classifier.Classifiers;
 import com.codeosseum.eligo.matchmaker.Matchmaker;
 import com.codeosseum.eligo.matchmaker.Matchmakers;
 import com.codeosseum.eligo.matchmaker.decisiontree.MatchFunction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.List;
@@ -14,6 +16,8 @@ import java.util.stream.Collectors;
 import static com.codeosseum.eligo.matchmaker.decisiontree.BucketMatcher.hasAtLeast;
 
 public class TwoPlayerFaultSeedingMatchmakerImpl extends EligoMatchmaker<TwoPlayerFaultSeedingMatchmakingProfile, TwoPlayerFaultSeedingMatchConfiguration> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TwoPlayerFaultSeedingMatchmakerImpl.class);
+
     private static final int PLAYER_COUNT = 2;
 
     private static Matchmaker<TwoPlayerFaultSeedingMatchmakingProfile, TwoPlayerFaultSeedingMatchConfiguration> eligoMatchmakerFactory() {
@@ -25,7 +29,11 @@ public class TwoPlayerFaultSeedingMatchmakerImpl extends EligoMatchmaker<TwoPlay
                                 .map(TwoPlayerFaultSeedingMatchmakingProfile::getUsername)
                                 .collect(Collectors.toList());
 
-                        return new TwoPlayerFaultSeedingMatchConfiguration(usernames);
+                        final TwoPlayerFaultSeedingMatchConfiguration configuration = new TwoPlayerFaultSeedingMatchConfiguration(usernames);
+
+                        LOGGER.debug("Created a new Two Player Fault Seeding configuration: {}", configuration);
+
+                        return configuration;
                     })
                     .build();
 

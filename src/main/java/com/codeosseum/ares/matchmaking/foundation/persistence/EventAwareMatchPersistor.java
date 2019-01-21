@@ -6,12 +6,16 @@ import com.codeosseum.ares.match.Match;
 import com.codeosseum.ares.match.Status;
 import com.codeosseum.ares.match.repository.MatchRepository;
 import com.codeosseum.ares.matchmaking.foundation.matchmaker.MatchAssignedEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 
 import static java.util.Collections.singletonList;
 
 public class EventAwareMatchPersistor implements EventConsumer<MatchAssignedEvent> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(EventAwareMatchPersistor.class.getName());
+
     private final MatchRepository matchRepository;
 
     private final EventDispatcher eventDispatcher;
@@ -28,6 +32,8 @@ public class EventAwareMatchPersistor implements EventConsumer<MatchAssignedEven
         final Match match = createMatchFromMatchMadeEvent(event);
 
         final MatchPersistedEvent matchPersistedEvent = persistMatch(match, event);
+
+        LOGGER.info("Match (ID = {}) PERSISTED: {}", matchPersistedEvent.getMatch().getId(), matchPersistedEvent.getMatch());
 
         eventDispatcher.dispatchEvent(matchPersistedEvent);
     }

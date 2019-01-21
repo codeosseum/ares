@@ -3,6 +3,8 @@ package com.codeosseum.ares.matchmaking.faultseeding.twoplayer;
 import com.codeosseum.ares.security.util.AuthenticationService;
 import com.codeosseum.ares.user.User;
 import com.codeosseum.ares.web.Paths;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +14,8 @@ import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 @Controller
 public class TwoPlayerFaultSeedingMatchmakingController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TwoPlayerFaultSeedingMatchmakingController.class);
+
     private static final String MODE_PATH = "/two-player-fault-seeding";
 
     private final AuthenticationService authenticationService;
@@ -32,7 +36,11 @@ public class TwoPlayerFaultSeedingMatchmakingController {
         authenticationService.getAuthenticatedUser()
                 .map(User::getUsername)
                 .map(TwoPlayerFaultSeedingMatchmakingRequest::new)
-                .ifPresent(matchmakingService::addToMatchmaking);
+                .ifPresent(request -> {
+                    LOGGER.info("Adding user {} to Two Player Fault Seeding matchmaking", request.getUsername());
+
+                    matchmakingService.addToMatchmaking(request);
+                });
 
         return new ResponseEntity(NO_CONTENT);
     }

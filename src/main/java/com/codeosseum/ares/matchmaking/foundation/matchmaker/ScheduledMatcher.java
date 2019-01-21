@@ -3,6 +3,8 @@ package com.codeosseum.ares.matchmaking.foundation.matchmaker;
 import com.codeosseum.ares.eventbus.dispatch.EventDispatcher;
 import com.codeosseum.ares.matchmaking.foundation.serverallocation.ServerAllocator;
 import com.codeosseum.ares.servermanagement.Server;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
 import java.util.List;
@@ -12,6 +14,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class ScheduledMatcher {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ScheduledMatcher.class.getName());
+
     private final ServerAllocator serverAllocator;
 
     private final EventDispatcher eventDispatcher;
@@ -30,11 +34,19 @@ public class ScheduledMatcher {
     }
 
     private void checkForMatches() {
+        LOGGER.info("Checking for matches...");
+
         final List<Server> availableServers = serverAllocator.findAllAvailableServers();
+
+        LOGGER.debug("Available server for matches: {}", availableServers);
 
         final List<MatchConfiguration> possibleMatches = createAllPossibleMatches();
 
+        LOGGER.debug("Possible matches: {}", possibleMatches);
+
         final int creatableMatchCount = Math.min(availableServers.size(), possibleMatches.size());
+
+        LOGGER.info("{} matches can be created", creatableMatchCount);
 
         final Set<String> assignedPlayers = new HashSet<>();
 
@@ -44,6 +56,8 @@ public class ScheduledMatcher {
 
             if (allPlayersAreUnassigned(assignedPlayers, match)) {
                 assignedPlayers.addAll(match.getPlayers());
+
+                LOGGER.info("Match ASSIGNED: {} | Server: {}", match, server);
 
                 publishMatch(match, server);
             }
@@ -64,6 +78,8 @@ public class ScheduledMatcher {
 
     private void publishMatch(final MatchConfiguration match, final Server server) {
         final MatchAssignedEvent event = new MatchAssignedEvent(match, server);
+
+
 
         eventDispatcher.dispatchEvent(event);
     }
