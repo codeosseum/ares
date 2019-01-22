@@ -16,11 +16,11 @@ public class EventAwareServerNotificator implements EventConsumer<MatchPersisted
 
     private final RestTemplate serverCommunicator;
 
-    private final EventDispatcher eventDispatcher;
+    private final ModeToEndpointTranslator endpointTranslator;
 
-    public EventAwareServerNotificator(RestTemplate serverCommunicator, EventDispatcher eventDispatcher) {
+    public EventAwareServerNotificator(final RestTemplate serverCommunicator, final EventDispatcher eventDispatcher, final ModeToEndpointTranslator endpointTranslator) {
         this.serverCommunicator = serverCommunicator;
-        this.eventDispatcher = eventDispatcher;
+        this.endpointTranslator = endpointTranslator;
 
         eventDispatcher.registerConsumer(MatchPersistedEvent.class, this);
     }
@@ -29,9 +29,11 @@ public class EventAwareServerNotificator implements EventConsumer<MatchPersisted
     public void accept(final MatchPersistedEvent event) {
         final URI baseUri = URI.create(event.getMatch().getServer().getUri());
 
-        final URI endpoint = baseUri.resolve(MATCH_PATH);
-
         try {
+            final URI endpoint = endpointTranslator.getEndpointOf(event.getMatch().getMatchConfiguration().getMode())
+                .map(baseUri::resolve)
+                .orElseThrow(() -> new RuntimeException("TODO: better exception"));
+
             LOGGER.info("Sending match {} to server {}.", event.getMatch().getId(), event.getMatch().getServer().getIdentifier());
 
             serverCommunicator.put(endpoint, event.getMatch());

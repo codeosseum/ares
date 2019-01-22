@@ -6,6 +6,7 @@ import com.codeosseum.ares.match.repository.MatchRepository;
 import com.codeosseum.ares.matchmaking.foundation.matchmaker.*;
 import com.codeosseum.ares.matchmaking.foundation.notificator.EventAwarePlayerNotificatorImpl;
 import com.codeosseum.ares.matchmaking.foundation.notificator.EventAwareServerNotificator;
+import com.codeosseum.ares.matchmaking.foundation.notificator.ModeToEndpointTranslator;
 import com.codeosseum.ares.matchmaking.foundation.notificator.PlayerNotificator;
 import com.codeosseum.ares.matchmaking.foundation.persistence.EventAwareMatchPersistor;
 import com.codeosseum.ares.matchmaking.foundation.persistence.MatchPersistedEvent;
@@ -37,6 +38,9 @@ public class FoundationConfig {
     private ServerRegistry serverRegistry;
 
     @Autowired
+    private ModeToEndpointTranslator endpointTranslator;
+
+    @Autowired
     private List<Matchmaker<? extends MatchmakingProfile, ? extends MatchConfiguration>> matchmakers;
 
     @Bean
@@ -46,7 +50,7 @@ public class FoundationConfig {
 
     @Bean
     public EventAwareServerNotificator eventAwareServerNotificator() {
-        return new EventAwareServerNotificator(serverCommunicator(), eventDispatcher);
+        return new EventAwareServerNotificator(serverCommunicator(), eventDispatcher, endpointTranslator);
     }
 
     @Bean
