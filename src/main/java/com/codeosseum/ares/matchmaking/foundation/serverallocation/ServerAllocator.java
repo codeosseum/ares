@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ServerAllocator {
     List<Server> findAllAvailableServers();
+
+    void free(String serverId);
 }

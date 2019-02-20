@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.requireNonNull;
+
 public class EventAwareServerAllocatorImpl implements ServerAllocator {
     private static final Logger LOGGER = LoggerFactory.getLogger(EventAwarePlayerNotificatorImpl.class);
 
@@ -33,6 +35,11 @@ public class EventAwareServerAllocatorImpl implements ServerAllocator {
         return serverRegistry.findAll().stream()
                 .filter(server -> takenServerMap.containsValue(server.getUri()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void free(final String serverId) {
+        takenServerMap.remove(requireNonNull(serverId));
     }
 
     private void consumeMatchPersistedEvent(final MatchPersistedEvent event) {
