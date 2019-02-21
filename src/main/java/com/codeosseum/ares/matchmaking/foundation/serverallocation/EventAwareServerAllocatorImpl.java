@@ -8,10 +8,9 @@ import com.codeosseum.ares.servermanagement.registry.ServerRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.net.URI;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
@@ -21,11 +20,11 @@ public class EventAwareServerAllocatorImpl implements ServerAllocator {
 
     private final ServerRegistry serverRegistry;
 
-    private final Map<String, String> takenServerMap;
+    private final Set<String> takenServers;
 
     public EventAwareServerAllocatorImpl(ServerRegistry serverRegistry, EventDispatcher eventDispatcher) {
         this.serverRegistry = serverRegistry;
-        this.takenServerMap = new ConcurrentHashMap<>();
+        this.takenServers = new HashSet<>();
 
         eventDispatcher.registerConsumer(MatchPersistedEvent.class, this::consumeMatchPersistedEvent);
     }
@@ -33,18 +32,22 @@ public class EventAwareServerAllocatorImpl implements ServerAllocator {
     @Override
     public List<Server> findAllAvailableServers() {
         return serverRegistry.findAll().stream()
-                .filter(server -> takenServerMap.containsValue(server.getUri()))
+                .filter(this::serverIsFree)
                 .collect(Collectors.toList());
     }
 
     @Override
     public void free(final String serverId) {
-        takenServerMap.remove(requireNonNull(serverId));
+        takenServers.remove(requireNonNull(serverId));
     }
 
     private void consumeMatchPersistedEvent(final MatchPersistedEvent event) {
-        LOGGER.info("Setting server {} as taken for match with ID {}", event.getMatch().getServer().getIdentifier(), event.getMatch().getId());
+        LOGGER.info("Setting server {} as taken", event.getMatch().getServer().getIdentifier());
 
-        takenServerMap.put(event.getMatch().getId(), event.getMatch().getServer().getUri());
+        takenServers.add(event.getMatch().getServer().getIdentifier());
+    }
+
+    private boolean serverIsFree(final Server server) {
+        return !takenServers.contains(server.getIdentifier());
     }
 }

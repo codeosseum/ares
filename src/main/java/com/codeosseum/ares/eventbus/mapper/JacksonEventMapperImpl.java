@@ -30,6 +30,8 @@ public class JacksonEventMapperImpl implements EventMapper {
 
                         return Optional.of(eventMapperObjectMapper.readValue(contents, type));
                     } catch (Exception e){
+                        LOGGER.warn("Could not map event {}", e);
+
                         return Optional.empty();
                     }
                 });

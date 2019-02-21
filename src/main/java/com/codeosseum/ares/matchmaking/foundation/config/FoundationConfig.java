@@ -3,11 +3,14 @@ package com.codeosseum.ares.matchmaking.foundation.config;
 import com.codeosseum.ares.eventbus.dispatch.EventDispatcher;
 import com.codeosseum.ares.eventbus.registry.EventRegistry;
 import com.codeosseum.ares.match.repository.MatchRepository;
-import com.codeosseum.ares.matchmaking.foundation.matchmaker.*;
-import com.codeosseum.ares.matchmaking.foundation.notificator.EventAwarePlayerNotificatorImpl;
+import com.codeosseum.ares.matchmaking.foundation.matchmaker.MatchAssignedEvent;
+import com.codeosseum.ares.matchmaking.foundation.matchmaker.MatchConfiguration;
+import com.codeosseum.ares.matchmaking.foundation.matchmaker.Matchmaker;
+import com.codeosseum.ares.matchmaking.foundation.matchmaker.MatchmakingProfile;
+import com.codeosseum.ares.matchmaking.foundation.matchmaker.RemovePlayersFromMatchmakingListener;
+import com.codeosseum.ares.matchmaking.foundation.matchmaker.ScheduledMatcher;
 import com.codeosseum.ares.matchmaking.foundation.notificator.EventAwareServerNotificator;
 import com.codeosseum.ares.matchmaking.foundation.notificator.ModeToEndpointTranslator;
-import com.codeosseum.ares.matchmaking.foundation.notificator.PlayerNotificator;
 import com.codeosseum.ares.matchmaking.foundation.persistence.EventAwareMatchPersistor;
 import com.codeosseum.ares.matchmaking.foundation.persistence.MatchPersistedEvent;
 import com.codeosseum.ares.matchmaking.foundation.serverallocation.EventAwareServerAllocatorImpl;
@@ -41,12 +44,10 @@ public class FoundationConfig {
     private ModeToEndpointTranslator endpointTranslator;
 
     @Autowired
-    private List<Matchmaker<? extends MatchmakingProfile, ? extends MatchConfiguration>> matchmakers;
+    private RemovePlayersFromMatchmakingListener removePlayersFromMatchmakingListener;
 
-    @Bean
-    public PlayerNotificator playerNotificator() {
-        return new EventAwarePlayerNotificatorImpl(eventDispatcher);
-    }
+    @Autowired
+    private List<Matchmaker<? extends MatchmakingProfile, ? extends MatchConfiguration>> matchmakers;
 
     @Bean
     public EventAwareServerNotificator eventAwareServerNotificator() {
@@ -74,6 +75,11 @@ public class FoundationConfig {
     public void registerEvents() {
         eventRegistry.registerEvent(MatchAssignedEvent.IDENTIFIER, MatchAssignedEvent.class);
         eventRegistry.registerEvent(MatchPersistedEvent.IDENTIFIER, MatchPersistedEvent.class);
+    }
+
+    @PostConstruct
+    public void registerConsumers() {
+        eventDispatcher.registerConsumer(MatchPersistedEvent.class, removePlayersFromMatchmakingListener);
     }
 
     private RestTemplate serverCommunicator() {

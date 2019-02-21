@@ -1,24 +1,15 @@
 package com.codeosseum.ares.matchmaking.foundation.matchmaker;
 
 import com.codeosseum.ares.match.Mode;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.util.List;
 
+@Data
+@AllArgsConstructor
 public class MatchConfiguration {
-    private final Mode mode;
+    private Mode mode;
 
-    private final List<String> players;
-
-    public MatchConfiguration(Mode mode, List<String> players) {
-        this.mode = mode;
-        this.players = players;
-    }
-
-    public Mode getMode() {
-        return mode;
-    }
-
-    public List<String> getPlayers() {
-        return players;
-    }
+    private List<String> players;
 }

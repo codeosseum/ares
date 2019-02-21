@@ -6,4 +6,6 @@ import java.util.Optional;
 
 public interface PlayerNotificator {
     Optional<PlayableMatch> getMatchForPlayer(String username);
+
+    void unsetMatchForPlayer(String username);
 }
