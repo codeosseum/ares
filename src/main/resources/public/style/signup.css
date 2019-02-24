@@ -64,6 +64,12 @@ label {
     padding-bottom: 5px;
 }
 
+.field-error {
+    margin-top: 10px;
+    font-size: 12.777px;
+    color: #702412;
+}
+
 .input-information {
     margin-top: 10px;
     font-size: 12.777px;

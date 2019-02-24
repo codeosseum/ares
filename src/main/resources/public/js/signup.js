@@ -5,6 +5,16 @@
 
     document.getElementsByClassName('sign-up-button')[0].addEventListener('click', initiateSignUp);
 
+    document.querySelectorAll('input').forEach(input => input.addEventListener('input', clearInputFieldError))
+    
+    function clearInputFieldError(event) {
+        const fieldError = selectFieldError(event.target.name);
+
+        if (fieldError) {
+            fieldError.textContent = '';
+        }
+    };
+
     async function initiateSignUp() {
         const signUpRequest = {
             username: usernameField.value,
@@ -25,7 +35,15 @@
         } else {
             const failure = await response.json();
 
-            console.log(failure);
+            displayFieldErrors(failure.errors);
         }
     };
+
+    function displayFieldErrors(errors) {
+        errors.forEach(error => selectFieldError(error.field).textContent = error.message);
+    }
+
+    function selectFieldError(fieldName) {
+        return document.querySelector(`.field-error.${fieldName}`);
+    }
 })();
