@@ -1,0 +1,134 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-family: "Open Sans", sans-serif;
+}
+
+header {
+    height: 100vh;
+    background: url("/image/helmet-background.jpg");
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+header > * {
+    width: 100%;
+}
+
+header > nav {
+    height: 100px;
+    background: white;
+    position: relative;
+    
+    box-shadow: 0px 7px 7px 2px rgba(0, 0, 0, 0.2);
+}
+
+header > .content {
+    height: calc(100% - 100px);
+}
+
+.container {
+    width: 1170px;
+    height: 100%;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+}
+
+.branding {
+    display: block;
+    width: 17.5em;
+}
+
+.branding > img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.content-container {
+    position: relative;
+    padding: 3em 0em;
+    height: 100%;
+    padding-left: 13%;
+    padding-right: 5%;
+
+    
+}
+
+.slogan-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    float: left;
+    width: 60%;
+}
+
+.slogan {
+    margin: 0;
+    padding: 0;
+    font-size: 3rem;
+    
+    font-weight: 300;
+    color: #702412;
+}
+
+.slogan > span {
+    display: block;
+    font-weight: 400;
+}
+
+a.action-button {
+    text-decoration: none;
+    padding: 0.7em 0.7em;
+    font-size: 1.5rem;
+    background-color: #cc972d;
+    box-shadow: 0px 7px 7px 2px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+.slogan-buttons {
+    padding: 3em 0em;
+}
+
+.features-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    float: left;
+    width: 40%;
+}
+
+.clear {
+    clear: both;
+}
+
+.feature {
+    color: #ffffff;
+    background: #702412;
+    box-shadow: 5px 20px 20px 10px rgba(0, 0, 0, 0.4);
+    padding: 2em 2em;
+}
+
+.feature-title {
+    font-weight: 300;
+    font-size: 1.777rem;
+    padding-bottom: 0.333em;
+}
+
+.feature-description {
+    font-size: 1.2rem;
+}
