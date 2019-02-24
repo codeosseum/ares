@@ -1,4 +1,4 @@
-package com.codeosseum.ares.security.registration.service;
+package com.codeosseum.ares.security.signup.service;
 
 import lombok.Builder;
 import lombok.Value;

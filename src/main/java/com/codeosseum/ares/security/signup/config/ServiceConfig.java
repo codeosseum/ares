@@ -1,9 +1,9 @@
-package com.codeosseum.ares.security.registration.config;
+package com.codeosseum.ares.security.signup.config;
 
 import com.codeosseum.ares.player.PlayerService;
-import com.codeosseum.ares.security.registration.service.DefaultUserRegistrationServiceImpl;
-import com.codeosseum.ares.security.registration.service.PlayerCreatingUserRegistrationServiceImpl;
-import com.codeosseum.ares.security.registration.service.UserRegistrationService;
+import com.codeosseum.ares.security.signup.service.DefaultUserRegistrationServiceImpl;
+import com.codeosseum.ares.security.signup.service.PlayerCreatingUserRegistrationServiceImpl;
+import com.codeosseum.ares.security.signup.service.UserRegistrationService;
 import com.codeosseum.ares.user.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

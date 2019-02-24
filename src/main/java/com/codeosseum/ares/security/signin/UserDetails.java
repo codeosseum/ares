@@ -1,4 +1,4 @@
-package com.codeosseum.ares.security.login;
+package com.codeosseum.ares.security.signin;
 
 import com.codeosseum.ares.user.User;
 import org.springframework.security.core.GrantedAuthority;

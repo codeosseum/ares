@@ -3,12 +3,12 @@ package com.codeosseum.ares.web;
 public final class Paths {
     public static final String HOME = "/";
 
-    public static final String LOGIN = "/login";
-    public static final String LOGIN_ERROR = LOGIN + "?error=true";
+    public static final String SIGN_IN = "/signin";
+    public static final String SIGN_IN_ERROR = SIGN_IN + "?error=true";
 
-    public static final String LOGOUT_SUCCESS = HOME + "?logout=true";
+    public static final String SIGN_OUT_SUCCESS = HOME + "?logout=true";
 
-    public static final String REGISTRATION = "/registration";
+    public static final String SIGN_UP = "/signup";
 
     public static final class Game {
         private static final String PREFIX = "/game";
@@ -25,7 +25,7 @@ public final class Paths {
     public static final class Api {
         private static final String PREFIX = "/api";
 
-        public static final String REGISTRATION = PREFIX + "/registration";
+        public static final String REGISTRATION = PREFIX + "/signup";
 
         public static final String EVENT = PREFIX + "/event";
 

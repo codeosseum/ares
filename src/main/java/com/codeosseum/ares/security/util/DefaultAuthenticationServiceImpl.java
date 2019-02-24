@@ -1,6 +1,6 @@
 package com.codeosseum.ares.security.util;
 
-import com.codeosseum.ares.security.login.UserDetails;
+import com.codeosseum.ares.security.signin.UserDetails;
 import com.codeosseum.ares.user.Role;
 import com.codeosseum.ares.user.User;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;

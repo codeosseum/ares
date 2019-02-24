@@ -1,4 +1,4 @@
-package com.codeosseum.ares.security.registration.service;
+package com.codeosseum.ares.security.signup.service;
 
 import com.codeosseum.ares.user.Role;
 import com.codeosseum.ares.user.User;

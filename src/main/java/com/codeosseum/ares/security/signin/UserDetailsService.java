@@ -1,4 +1,4 @@
-package com.codeosseum.ares.security.login;
+package com.codeosseum.ares.security.signin;
 
 import com.codeosseum.ares.user.UserRepository;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,7 +17,7 @@ public class UserDetailsService implements org.springframework.security.core.use
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username)
-                .map(com.codeosseum.ares.security.login.UserDetails::new)
+                .map(com.codeosseum.ares.security.signin.UserDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_MESSAGE_TEMPLATE, username)));
     }
 }

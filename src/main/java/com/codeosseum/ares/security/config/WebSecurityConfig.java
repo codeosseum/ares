@@ -38,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations().excluding(WEB_JARS))
                 .permitAll()
-            .antMatchers(Paths.HOME, Paths.LOGIN, Paths.REGISTRATION)
+            .antMatchers(Paths.HOME, Paths.SIGN_IN, Paths.SIGN_UP)
                 .permitAll()
             .antMatchers(Paths.Api.REGISTRATION, "/api/event")
                 .permitAll()
@@ -52,9 +52,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private WebSecurityConfig configureLogin(final HttpSecurity http) throws Exception {
         http.formLogin()
-            .loginPage(Paths.LOGIN)
+            .loginPage(Paths.SIGN_IN)
             .defaultSuccessUrl(Paths.Game.HOME)
-            .failureUrl(Paths.LOGIN_ERROR)
+            .failureUrl(Paths.SIGN_IN_ERROR)
             .permitAll();
 
         return this;
@@ -62,7 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private WebSecurityConfig configureLogout(final HttpSecurity http) throws Exception {
         http.logout()
-            .logoutSuccessUrl(Paths.LOGOUT_SUCCESS)
+            .logoutSuccessUrl(Paths.SIGN_OUT_SUCCESS)
             .permitAll();
 
         return this;

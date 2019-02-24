@@ -1,8 +1,8 @@
-package com.codeosseum.ares.security.registration.controller;
+package com.codeosseum.ares.security.signup.controller;
 
-import com.codeosseum.ares.security.registration.service.RegistrationDetails;
-import com.codeosseum.ares.security.registration.service.RegistrationFailedException;
-import com.codeosseum.ares.security.registration.service.UserRegistrationService;
+import com.codeosseum.ares.security.signup.service.RegistrationDetails;
+import com.codeosseum.ares.security.signup.service.RegistrationFailedException;
+import com.codeosseum.ares.security.signup.service.UserRegistrationService;
 import com.codeosseum.ares.security.util.AuthenticationService;
 import com.codeosseum.ares.web.Paths;
 import com.codeosseum.ares.web.Views;
@@ -21,29 +21,29 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-public class RegistrationController {
+public class SignUpController {
     private static final String REDIRECT_TO_GAME_HOME = "redirect:" + Paths.Game.HOME;
 
     private final AuthenticationService authenticationService;
 
     private final UserRegistrationService userRegistrationService;
 
-    public RegistrationController(final AuthenticationService authenticationService, final UserRegistrationService userRegistrationService) {
+    public SignUpController(final AuthenticationService authenticationService, final UserRegistrationService userRegistrationService) {
         this.authenticationService = authenticationService;
         this.userRegistrationService = userRegistrationService;
     }
 
-    @GetMapping(Paths.REGISTRATION)
+    @GetMapping(Paths.SIGN_UP)
     public String getRegistrationView() {
-        return authenticationService.hasAuthenticatedUser() ? REDIRECT_TO_GAME_HOME : Views.REGISTRATION;
+        return authenticationService.hasAuthenticatedUser() ? REDIRECT_TO_GAME_HOME : Views.SIGN_UP;
     }
 
     @PostMapping(Paths.Api.REGISTRATION)
     @ResponseBody
-    public ResponseEntity registerUser(@RequestBody @Valid final Registration registration, final BindingResult bindingResult) {
+    public ResponseEntity registerUser(@RequestBody @Valid final SignUpRequest signUpRequest, final BindingResult bindingResult) {
         if (isFormValid(bindingResult)) {
             try {
-                performRegistration(registration);
+                performRegistration(signUpRequest);
 
                 return new ResponseEntity(HttpStatus.CREATED);
             } catch (RegistrationFailedException e) {
@@ -60,11 +60,11 @@ public class RegistrationController {
         return !bindingResult.hasErrors();
     }
 
-    private void performRegistration(final Registration registration) throws RegistrationFailedException  {
+    private void performRegistration(final SignUpRequest signUpRequest) throws RegistrationFailedException  {
         final RegistrationDetails registrationDetails = RegistrationDetails.builder()
-                .username(registration.getUsername())
-                .email(registration.getEmail())
-                .password(registration.getPassword())
+                .username(signUpRequest.getUsername())
+                .email(signUpRequest.getEmail())
+                .password(signUpRequest.getPassword())
                 .build();
 
         userRegistrationService.register(registrationDetails);

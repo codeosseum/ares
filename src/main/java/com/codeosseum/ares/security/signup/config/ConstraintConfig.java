@@ -1,7 +1,7 @@
-package com.codeosseum.ares.security.registration.config;
+package com.codeosseum.ares.security.signup.config;
 
-import com.codeosseum.ares.security.registration.constraint.UniqueEmailValidator;
-import com.codeosseum.ares.security.registration.constraint.UniqueUsernameValidator;
+import com.codeosseum.ares.security.signup.constraint.UniqueEmailValidator;
+import com.codeosseum.ares.security.signup.constraint.UniqueUsernameValidator;
 import com.codeosseum.ares.user.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

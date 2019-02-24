@@ -1,4 +1,4 @@
-package com.codeosseum.ares.security.registration.constraint;
+package com.codeosseum.ares.security.signup.constraint;
 
 import com.codeosseum.ares.user.UserRepository;
 
