@@ -10,30 +10,56 @@
 
     <title>Codeosseum Login</title>
 
-    <meta name="description" content="Codeosseum">
+    <meta name="description" content="Codeosseum Login">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"> 
+
+    <link rel="stylesheet" href="/style/login.css">
 </head>
 
 <body>
 
+<main>
+    <div class="content-container">
+        <a class="branding" href="/">
+            <img src="/image/logo.png">
+        </a>
+        <h1 class="sign-in-heading">
+            Sign in to Codeosseum
+        </h1>
+        <div class="sign-in-form-container">
+            <form th:action="@{/login}" method="post" class="sign-in-form">
+                <div>
+                    <label>Username</label>
+                    <input type="text" name="username"/>
+                </div>
+                <div>
+                    <label>Password</label>
+                    <input type="password" name="password"/>
+                </div>
+                <div>
+                    <input type="submit" value="Sign In"/>
+                </div>
+            </form>
+        </div>
+        <div class="sign-up-container">
+            <span>First time?</span>
+            <a class="sign-up-link" href="/registration.html">Create an account.</a>
+        </div>
+    </div>
+</main>
+
+<!--
 <h1>Codeosseum Login</h1>
 
 <div>
     <div th:if="${param.error}">
         Invalid username and password.
     </div>
-    <form th:action="@{/login}" method="post" id="login-form">
-        <div>
-            <label>Username: <input type="text" name="username"/></label>
-        </div>
-        <div>
-            <label>Password: <input type="password" name="password"/></label>
-        </div>
-        <div>
-            <input type="submit" value="Sign In"/>
-        </div>
-    </form>
+    
 </div>
+-->
 
 <script src="/js/login.js"></script>
 </body>
