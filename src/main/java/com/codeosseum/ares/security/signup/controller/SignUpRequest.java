@@ -12,17 +12,17 @@ import javax.validation.constraints.Size;
 @Value
 public final class SignUpRequest {
     @NotNull
-    @NotEmpty
+    @NotEmpty(message = "{username.notempty}")
     @UniqueUsername
     private final String username;
 
     @NotNull
-    @Size(min = 10)
+    @Size(min = 10, message = "{password.size}")
     private final String password;
 
     @NotNull
-    @NotEmpty
-    @Email
+    @NotEmpty(message = "{email.notempty}")
+    @Email(message = "{email.valid}")
     @UniqueEmail
     private final String email;
 }

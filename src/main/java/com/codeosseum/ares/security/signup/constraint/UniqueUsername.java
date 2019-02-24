@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD})
 @Constraint(validatedBy = UniqueUsernameValidator.class)
 public @interface UniqueUsername {
-    String message() default "UNIQUE_USERNAME_CONSTRAINT_VIOLATION";
+    String message() default "{username.unique}";
 
     Class<?>[] groups() default {};
 

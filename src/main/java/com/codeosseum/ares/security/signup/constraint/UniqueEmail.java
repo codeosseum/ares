@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD})
 @Constraint(validatedBy = UniqueEmailValidator.class)
 public @interface UniqueEmail {
-    String message() default "UNIQUE_EMAIL_CONSTRAINT_VIOLATION";
+    String message() default "{email.unique}";
 
     Class<?>[] groups() default {};
 
