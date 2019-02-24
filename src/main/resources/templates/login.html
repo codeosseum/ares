@@ -15,15 +15,15 @@
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"> 
 
-    <link rel="stylesheet" href="/style/login.css">
+    <link rel="stylesheet" th:href="@{/style/login.css}">
 </head>
 
 <body>
 
 <main>
     <div class="content-container">
-        <a class="branding" href="/">
-            <img src="/image/logo.png">
+        <a class="branding" th:href="@{/}">
+            <img th:src="@{/image/logo.png}">
         </a>
         <h1 class="sign-in-heading">
             Sign in to Codeosseum
@@ -45,7 +45,7 @@
         </div>
         <div class="sign-up-container">
             <span>First time?</span>
-            <a class="sign-up-link" href="/registration.html">Create an account.</a>
+            <a class="sign-up-link" th:href="@{/registration}">Create an account.</a>
         </div>
     </div>
 </main>

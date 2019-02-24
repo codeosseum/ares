@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"> 
     <link href="https://fonts.googleapis.com/css?family=Lora:400,700" rel="stylesheet"> 
 
-    <link rel="stylesheet" href="/style/home.css">
+    <link rel="stylesheet" th:href="@{/style/home.css}">
 </head>
 
 <body>
@@ -25,9 +25,17 @@
         <header class="is-fullheight">
             <nav>
                 <div class="nav-container container">
-                    <a class="branding" href="/">
-                        <img src="/image/logo-text.png">
+                    <a class="branding" th:href="@{/}">
+                        <img th:src="@{/image/logo-text.png}">
                     </a>
+                    <div class="nav-right">
+                        <a th:href="@{/login}" class="nav-button sign-in-button">
+                            Sign In
+                        </a>
+                        <a th:href="@{/registration}" class="nav-button sign-up-button">
+                            Sign Up
+                        </a>
+                    </div>
                 </div>
             </nav>
 
@@ -40,7 +48,7 @@
                                 <span>competitive programming.</span>
                             </h1>
                             <div class="slogan-buttons">
-                                <a href="" class="action-button">
+                                <a th:href="@{/login}" class="action-button">
                                     Enter the Arena
                                 </a>
                             </div>
