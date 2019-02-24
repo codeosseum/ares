@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Codeosseum Sign Up</title>
+
+    <meta name="description" content="Codeosseum Sign Up">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"> 
+
+    <link rel="stylesheet" th:href="@{/style/signup.css}">
+</head>
+
+<body>
+
+<main>
+    <div class="content-container">
+        <a class="branding" th:href="@{/}">
+            <img th:src="@{/image/logo.png}">
+        </a>
+        <h1 class="sign-up-heading">
+            Setup your account
+        </h1>
+        <div class="sign-up-form-container">
+            <div class="sign-up-form">
+                <div>
+                    <label>Username</label>
+                    <input type="text" name="username"/>
+                    <div class="input-information">
+                        A unique username that will identify your account in Codeosseum.
+                    </div>
+                </div>
+                <div>
+                    <label>Email address</label>
+                    <input type="email" name="email"/>
+                    <div class="input-information">
+                        From time to time we will send configurable notifications to this address. Doubles as password recovery address. 
+                    </div>
+                </div>
+                <div>
+                    <label>Password</label>
+                    <input type="password" name="password"/>
+                    <div class="input-information">
+                        Just make sure, it's at least 10 characters.
+                    </div>
+                </div>
+                <div>
+                    <button class="sign-up-button">
+                        Sign Up
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-container">
+            <span>By signing up, you accept our</span>
+            <a class="bottom-link" th:href="@{/terms-and-conditions}">Terms and Conditions</a>
+            <span>and</span>
+            <a class="bottom-link" th:href="@{/privacy-policy}">Privacy Policy.</a>
+        </div>
+    </div>
+</main>
+
+<script src="/js/signup.js"></script>
+</body>
+
+</html>
