@@ -6,6 +6,8 @@ import com.codeosseum.ares.match.Match;
 import com.codeosseum.ares.match.Status;
 import com.codeosseum.ares.match.repository.MatchRepository;
 import com.codeosseum.ares.matchmaking.foundation.matchmaker.MatchAssignedEvent;
+import com.codeosseum.ares.servermanagement.Server;
+import com.codeosseum.ares.servermanagement.registry.ServerRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,10 +20,13 @@ public class EventAwareMatchPersistor implements EventConsumer<MatchAssignedEven
 
     private final MatchRepository matchRepository;
 
+    private final ServerRegistry serverRegistry;
+
     private final EventDispatcher eventDispatcher;
 
-    public EventAwareMatchPersistor(MatchRepository matchRepository, EventDispatcher eventDispatcher) {
+    public EventAwareMatchPersistor(MatchRepository matchRepository, ServerRegistry serverRegistry, EventDispatcher eventDispatcher) {
         this.matchRepository = matchRepository;
+        this.serverRegistry = serverRegistry;
         this.eventDispatcher = eventDispatcher;
 
         eventDispatcher.registerConsumer(MatchAssignedEvent.class, this);
@@ -44,10 +49,18 @@ public class EventAwareMatchPersistor implements EventConsumer<MatchAssignedEven
         final PlayableMatch result = PlayableMatch.builder()
                 .id(persistedMatch.getId())
                 .matchConfiguration(event.getMatchConfiguration())
-                .server(event.getAssignedServer())
+                .server(serverForEvent(event))
                 .build();
 
         return new MatchPersistedEvent(result);
+    }
+
+    private Server serverForEvent(MatchAssignedEvent event) {
+        // TODO: Make this one safer.
+        // There can be cases, when the server disconnects before this call is made
+        // therefore findByIdentifier yielding empty. The probability of this case
+        // is quite small, however, it should be dealt with.
+        return serverRegistry.findByIdentifier(event.getAssignedServerIdentifier()).get();
     }
 
     private Match createMatchFromMatchMadeEvent(final MatchAssignedEvent event) {
@@ -56,7 +69,7 @@ public class EventAwareMatchPersistor implements EventConsumer<MatchAssignedEven
         return Match.builder()
                 .mode(event.getMatchConfiguration().getMode())
                 .players(event.getMatchConfiguration().getPlayers())
-                .serverUri(event.getAssignedServer().getUri())
+                .serverIdentifier(event.getAssignedServerIdentifier())
                 .events(singletonList(createdMatchEvent))
                 .status(Status.CREATED)
                 .build();

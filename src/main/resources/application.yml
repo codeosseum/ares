@@ -9,3 +9,8 @@ codeosseum:
 
   eventbus:
     executorThreadCount: 2
+
+  matchmaking:
+    schedule:
+      initialDelaySeconds: 10
+      delaySeconds: 10

@@ -22,7 +22,7 @@ public class Match {
 
     private Status status;
 
-    private String serverUri;
+    private String serverIdentifier;
 
     private List<MatchEvent> events;
 }
