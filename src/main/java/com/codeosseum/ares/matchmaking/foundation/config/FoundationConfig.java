@@ -2,6 +2,7 @@ package com.codeosseum.ares.matchmaking.foundation.config;
 
 import com.codeosseum.ares.eventbus.dispatch.EventDispatcher;
 import com.codeosseum.ares.eventbus.registry.EventRegistry;
+import com.codeosseum.ares.match.factory.MatchFactory;
 import com.codeosseum.ares.match.repository.MatchRepository;
 import com.codeosseum.ares.matchmaking.foundation.matchmaker.MatchAssignedEvent;
 import com.codeosseum.ares.matchmaking.foundation.matchmaker.MatchConfiguration;
@@ -45,6 +46,9 @@ public class FoundationConfig {
     private ServerRegistry serverRegistry;
 
     @Autowired
+    private MatchFactory matchFactory;
+
+    @Autowired
     private ModeToEndpointTranslator endpointTranslator;
 
     @Autowired
@@ -60,7 +64,7 @@ public class FoundationConfig {
 
     @Bean
     public EventAwareMatchPersistor eventAwareMatchPersistor() {
-        return new EventAwareMatchPersistor(matchRepository, serverRegistry, eventDispatcher);
+        return new EventAwareMatchPersistor(matchRepository, serverRegistry, matchFactory, eventDispatcher);
     }
 
     @Bean

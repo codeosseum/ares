@@ -25,4 +25,6 @@ public class Match {
     private String serverIdentifier;
 
     private List<MatchEvent> events;
+
+    private String joinPassword;
 }

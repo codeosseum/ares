@@ -3,17 +3,13 @@ package com.codeosseum.ares.matchmaking.foundation.persistence;
 import com.codeosseum.ares.eventbus.dispatch.EventConsumer;
 import com.codeosseum.ares.eventbus.dispatch.EventDispatcher;
 import com.codeosseum.ares.match.Match;
-import com.codeosseum.ares.match.Status;
+import com.codeosseum.ares.match.factory.MatchFactory;
 import com.codeosseum.ares.match.repository.MatchRepository;
 import com.codeosseum.ares.matchmaking.foundation.matchmaker.MatchAssignedEvent;
 import com.codeosseum.ares.servermanagement.Server;
 import com.codeosseum.ares.servermanagement.registry.ServerRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.time.LocalDateTime;
-
-import static java.util.Collections.singletonList;
 
 public class EventAwareMatchPersistor implements EventConsumer<MatchAssignedEvent> {
     private static final Logger LOGGER = LoggerFactory.getLogger(EventAwareMatchPersistor.class.getName());
@@ -22,11 +18,15 @@ public class EventAwareMatchPersistor implements EventConsumer<MatchAssignedEven
 
     private final ServerRegistry serverRegistry;
 
+    private final MatchFactory matchFactory;
+
     private final EventDispatcher eventDispatcher;
 
-    public EventAwareMatchPersistor(MatchRepository matchRepository, ServerRegistry serverRegistry, EventDispatcher eventDispatcher) {
+    public EventAwareMatchPersistor(MatchRepository matchRepository, ServerRegistry serverRegistry,
+                                    MatchFactory matchFactory, EventDispatcher eventDispatcher) {
         this.matchRepository = matchRepository;
         this.serverRegistry = serverRegistry;
+        this.matchFactory = matchFactory;
         this.eventDispatcher = eventDispatcher;
 
         eventDispatcher.registerConsumer(MatchAssignedEvent.class, this);
@@ -34,7 +34,7 @@ public class EventAwareMatchPersistor implements EventConsumer<MatchAssignedEven
 
     @Override
     public void accept(final MatchAssignedEvent event) {
-        final Match match = createMatchFromMatchMadeEvent(event);
+        final Match match = matchFactory.createMatchFromEvent(event);
 
         final MatchPersistedEvent matchPersistedEvent = persistMatch(match, event);
 
@@ -50,6 +50,7 @@ public class EventAwareMatchPersistor implements EventConsumer<MatchAssignedEven
                 .id(persistedMatch.getId())
                 .matchConfiguration(event.getMatchConfiguration())
                 .server(serverForEvent(event))
+                .joinPassword(persistedMatch.getJoinPassword())
                 .build();
 
         return new MatchPersistedEvent(result);
@@ -62,18 +63,4 @@ public class EventAwareMatchPersistor implements EventConsumer<MatchAssignedEven
         // is quite small, however, it should be dealt with.
         return serverRegistry.findByIdentifier(event.getAssignedServerIdentifier()).get();
     }
-
-    private Match createMatchFromMatchMadeEvent(final MatchAssignedEvent event) {
-        final CreatedMatchEvent createdMatchEvent = new CreatedMatchEvent(LocalDateTime.now(), event.getMatchConfiguration());
-
-        return Match.builder()
-                .mode(event.getMatchConfiguration().getMode())
-                .players(event.getMatchConfiguration().getPlayers())
-                .serverIdentifier(event.getAssignedServerIdentifier())
-                .events(singletonList(createdMatchEvent))
-                .status(Status.CREATED)
-                .build();
-    }
-
-
 }
