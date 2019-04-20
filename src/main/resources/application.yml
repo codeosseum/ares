@@ -6,3 +6,6 @@ codeosseum:
   heartbeat:
     checkSeconds: 10
     timeoutSeconds: 120
+
+  eventbus:
+    executorThreadCount: 2
