@@ -8,19 +8,120 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>Codeosseum Matchmaking</title>
+    <title>Codeosseum</title>
 
     <meta name="description" content="Codeosseum">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700" rel="stylesheet"> 
+
+    <link rel="stylesheet" th:href="@{/style/game/matchmaking.css}">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 </head>
 
 <body>
 
-<h1>Codeosseum Matchmaking</h1>
+    <main>
+        <div class="overlay hidden">
+            <div class="wrap">
+                <div class="status-box">
+                    <div class="finding-match-status">
+                        <div class="status-icon-container fa-3x">
+                            <i class="fas fa-circle-notch fa-spin"></i>
+                        </div>
+                        <div class="status-box-text">
+                            Finding a match...
+                        </div>
+                    </div>
+                    <div class="match-found-status">
+                        <div class="status-icon-container fa-3x">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="status-box-text">
+                            Match found!
+                        </div>
+                    </div>
+                </div>
+                <div class="match-action-button cancel-match-button">
+                    Cancel
+                </div>
+                <div class="match-action-button accept-match-button visibility-hidden">
+                    Accept
+                </div>
+            </div>
+        </div>
+        <header class="is-fullheight">
+            <nav>
+                <div class="nav-container container">
+                    <a class="branding" th:href="@{/}">
+                        <img th:src="@{/image/logo-text.png}">
+                    </a>
+                    <div class="nav-right">
+                        <a th:href="@{/logout}" class="nav-button sign-out-button">
+                            Sign Out
+                        </a>
+                    </div>
+                </div>
+            </nav>
 
-<button id="find-match-button">Find Match</button>
+            <div class="content">
+                <div class="content-container">
+                    <div class="tile-container">
+                        <div class="tile-wrapper">
+                            <div class="tile">
+                                <div class="tile-image-container">
+                                    <img th:src="@{/image/team-deathmatch.png}" alt="Team Deathmatch" class="tile-image">
+                                </div>
+                                <div class="tile-content">
+                                    <div class="tile-text">
+                                        <div class="tile-title">
+                                            Team Deathmatch
+                                        </div>
+                                        <div class="tile-description">
+                                            Take the role of a QA or a Developer and fight in teams of two against other Dev-QA pairs!
+                                        </div>
+                                    </div>
+                                    <div class="tile-action">
+                                        <div class="action-button">
+                                            Play!
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-<script src="/js/matchmaking.js"></script>
+                        <div class="tile-wrapper">
+                            <div class="tile">
+                                <div class="tile-image-container">
+                                    <img th:src="@{/image/fault-seeding.png}" alt="Fault Seeding" class="tile-image">
+                                </div>
+                                <div class="tile-content">
+                                    <div class="tile-text">
+                                        <div class="tile-title">
+                                            Fault Seeding
+                                        </div>
+                                        <div class="tile-description">
+                                            Free-for-all fight against other QAs – find bugs as fast as you can!
+                                        </div>
+                                    </div>
+                                    <div class="tile-action">
+                                        <div class="action-button find-fault-seeding-match">
+                                            Play!
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+    </main>
+    <script src="/js/matchmaking.js"></script>
 </body>
 
 </html>
+

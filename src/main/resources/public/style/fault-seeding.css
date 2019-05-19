@@ -88,7 +88,7 @@ header {
 
 .editors .CodeMirror {
     height: calc(100% - 40px);
-    font-size: 15px;
+    font-size: 20px;
 }
 
 .output .CodeMirror {
@@ -162,10 +162,11 @@ main {
 
 .specification > .specification-content {
     padding: 5px;
-    height: 100%;
+    height: calc(100% - 40px);
+    overflow-y: auto;
 }
 
-.specification > .specification-content > h2:first-child {
+.specification > .specification-content > div > h2:first-child {
     margin-top:0;
 }
 
