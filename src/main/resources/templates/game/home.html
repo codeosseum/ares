@@ -8,15 +8,81 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>Codeosseum Game</title>
+    <title>Codeosseum</title>
 
     <meta name="description" content="Codeosseum">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700" rel="stylesheet"> 
+
+    <link rel="stylesheet" th:href="@{/style/game/home.css}">
 </head>
 
 <body>
 
-<h1>Codeosseum Game</h1>
+    <main>
+        <header class="is-fullheight">
+            <nav>
+                <div class="nav-container container">
+                    <a class="branding" th:href="@{/}">
+                        <img th:src="@{/image/logo-text.png}">
+                    </a>
+                    <div class="nav-center">
+                        Welcome, <span th:text="${username}"></span>!
+                    </div>
+                    <div class="nav-right">
+                        <a th:href="@{/logout}" class="nav-button sign-out-button">
+                            Sign Out
+                        </a>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="content">
+                <div class="content-container">
+                    <div class="tile-container">
+                        <div class="tile">
+                            <div class="tile-image-container">
+                                <img th:src="@{/image/profile.png}" alt="Profile" class="tile-image">
+                            </div>
+                            <div class="tile-title">
+                                Profile
+                            </div>
+                        </div>
+
+                        <div class="tile">
+                            <div class="tile-image-container">
+                                <img th:src="@{/image/statistics.png}" alt="Statistics" class="tile-image">
+                            </div>
+                            <div class="tile-title">
+                                Statistics
+                            </div>
+                        </div>
+
+                        <div class="tile">
+                            <div class="tile-image-container">
+                                <img th:src="@{/image/rewards.png}" alt="Rewards" class="tile-image">
+                            </div>
+                            <div class="tile-title">
+                                Rewards
+                            </div>
+                        </div>
+
+                        <a th:href="@{/game/matchmaking}" class="tile">
+                            <div class="tile-image-container">
+                                <img th:src="@{/image/matchmaking.png}" alt="Matchmaking" class="tile-image">
+                            </div>
+                            <div class="tile-title">
+                                Matchmaking
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+    </main>
 
 </body>
 
