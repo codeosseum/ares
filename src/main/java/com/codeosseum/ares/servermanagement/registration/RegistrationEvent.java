@@ -4,7 +4,7 @@ import lombok.Value;
 
 @Value
 public final class RegistrationEvent {
-    public static final String IDENTIFIER = "signup";
+    public static final String IDENTIFIER = "registration";
 
     private final String serverIdentifier;
 
