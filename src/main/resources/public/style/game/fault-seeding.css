@@ -1,0 +1,296 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-family: "Open Sans", sans-serif;
+    height: 100vh;
+}
+
+header {
+    height: 80px;
+
+    background: white;
+    position: relative;
+    
+    box-shadow: 0px 4.5px 4.5px 1.5px rgba(0, 0, 0, 0.2);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 1.333em;
+    padding-right: 1.333em;
+}
+
+.menu {
+    width: 300px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.menu-item {
+    display: block;
+    height: 2em;
+}
+
+.menu-item > img {
+    height: 100%;
+    max-height: 100%;
+    width: auto;
+    display: block;
+}
+
+.branding {
+    display: flex;
+    align-items: center;
+    width: 300px;
+}
+
+.branding > h1 {
+    font-variant: small-caps;
+    font-weight: lighter;
+    font-size: 2rem;
+    color: #702412;
+    padding-left: 15px;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    font-weight: lighter;
+}
+
+.info > .points, .info > .place {
+    font-size: 1.76rem;
+    color: #702412;
+}
+
+.info > .timer {
+    font-size: 2.75rem;
+    padding: 0 1em;
+    color: #702412;
+}
+
+.logo {
+    display: block;
+    height: 2.5em;
+}
+
+.logo > img {
+    height: 100%;
+    max-height: 100%;
+    width: auto;
+    display: block;
+}
+
+.editors .CodeMirror {
+    height: calc(100% - 40px);
+    font-size: 20px;
+}
+
+.output .CodeMirror {
+    height: calc(100% - 40px);
+    font-size: 18px;
+    background-color: #f7f7f7;
+}
+
+main {
+    height: calc(100% - 80px - 80px);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.editors {
+    display: flex;
+    flex-direction: row;
+}
+
+.editor-pane-title {
+    background: white;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    border-bottom: 1px solid #ddd;
+}
+
+.output-pane-title {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    border-bottom: 1px solid #ddd;
+}
+
+.output-pane-title > h2 {
+    padding: 0;
+    margin: 0;
+    font-size: 1.444rem;
+    font-weight: 400;
+    font-variant: small-caps;
+    padding-left: 5px;
+}
+
+.editor-pane-title > .editor-pane-title-gutter {
+    height: 100%;
+    width: 30px;
+    background: #f7f7f7;
+    border-right: 1px solid #ddd;
+}
+
+.editor-pane-title > h2 {
+    padding: 0;
+    margin: 0;
+    font-size: 1.444rem;
+    font-weight: 400;
+    font-variant: small-caps;
+    padding-left: 5px;
+}
+
+.gutter-horizontal {
+    background: #ddd;
+    cursor: col-resize;
+    width: 2.5px;
+}
+
+.gutter-vertical {
+    background: #ddd;
+    cursor: row-resize;
+}
+
+.specification > .specification-content {
+    padding: 5px;
+    height: calc(100% - 40px);
+    overflow-y: auto;
+}
+
+.specification > .specification-content > div > h2:first-child {
+    margin-top:0;
+}
+
+.under-test-code {
+    
+}
+
+.test-code {
+    
+}
+
+
+.output {
+    background: #f7f7f7;
+}
+
+footer {
+    height: 80px;
+    /*background: #702412;*/
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    position: relative;
+    box-shadow: 0px -4.5px 4.5px 1.5px rgba(0, 0, 0, 0.2);
+
+}
+
+.submit-button {
+    height: 100%;
+    border: none;
+    /*background: #cc972d;*/
+    color: black;
+    padding: 0 2.5em;
+    font-size: 2.1rem;
+    font-weight: lighter;
+    display: flex;
+    align-items: center;
+    border-left: 2.5px solid #ddd;
+}
+
+.submit-button > img {
+    display: block;
+    height: 2.45rem;
+    padding-left: 15px;
+}
+
+.leaderboard {
+    display: flex;
+}
+
+.leaderboard-entry {
+    height: 100%;
+    display: flex;
+    padding: 0 1em;
+    align-items: center;
+    font-size: 1.44rem;
+    font-weight: lighter;
+    border-right: 2.5px solid #ddd;
+}
+
+.overlay {
+    position: absolute;
+    height:100vh;
+    width:100vw;
+    top:0;
+    right:0;
+    z-index:1000;
+    background-color: #555555cc;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrap > *:not(:last-child) {
+    margin-bottom: 1em;
+}
+
+.status-box {
+    background: #cc972d99;
+    color:white;
+    box-shadow: 0px 7px 7px 2px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    padding: 2em 6.5em;
+}
+
+.status-icon-container {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 0.5em;
+}
+
+.status-box-text {
+    font-size: 1.777em;
+}
+
+.match-action-button {
+    width: 100%;
+    color:white;
+    box-shadow: 0px 7px 7px 2px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    padding: 1em;
+    font-size: 1.567em;
+}
+
+.match-action-button:hover {
+    cursor: pointer;
+    box-shadow: 0px 7px 7px 2px rgba(0, 0, 0, 0.7);
+}
+
+.cancel-match-button {
+    background: #ff000077;
+}
+
+.accept-match-button {
+    background: #00ff0077;
+}
+
+.hidden {
+    display: none;
+}
+
+.visibility-hidden {
+    visibility: hidden;
+}

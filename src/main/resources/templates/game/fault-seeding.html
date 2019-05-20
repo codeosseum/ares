@@ -16,34 +16,51 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"> 
     <link href="https://fonts.googleapis.com/css?family=Lora:400,700" rel="stylesheet"> 
 
-    <link rel="stylesheet" href="/public/style/fault-seeding.css">
+    <link rel="stylesheet" th:href="@{/style/game/fault-seeding.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.44.0/codemirror.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.44.0/addon/scroll/simplescrollbars.min.css" />
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 </head>
 
 <body>
 
+    <div class="overlay start-overlay">
+        <div class="wrap">
+            <div class="status-box">
+                <div class="waiting-for-players-status">
+                    <div class="status-icon-container fa-3x">
+                        <i class="fas fa-circle-notch fa-spin"></i>
+                    </div>
+                    <div class="status-box-text">
+                        Waiting for all players to join...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <header>
         <div class="branding">
             <div class="logo">
-                <img src="/public/image/logo.png">
+                <img th:src="@{/image/logo.png}">
             </div>
             <h1>Fault Seeding</h1>
         </div>
         <div class="info">
             <div class="points">
-                150 pts
+                0 pts
             </div>
             <div class="timer">
-                05:15
+                00:00
             </div>
             <div class="place">
-                2nd
+                1st
             </div>
         </div>
         <div class="menu">
             <a class="menu-item" href="/">
-                <img src="/public/image/menu.svg">
+                <img th:src="@{/image/menu.svg}">
             </a>
         </div>
     </header>
@@ -82,21 +99,17 @@
 
     <footer>
         <div class="leaderboard">
+            <!--
             <div class="leaderboard-entry">
                 <div>#1 BeardOfDoom (250)</div>
             </div>
-            <div class="leaderboard-entry">
-                <div>#2 battila7 (150)</div>
-            </div>
-            <div class="leaderboard-entry">
-                <div>#3 veresdavid (0)</div>
-            </div>
+            -->
         </div>
         <div class="submit-button">
             <div>
                 Submit
             </div>
-            <img src="/public/image/submit.svg">
+            <img th:src="@{/image/submit.svg}">
         </div>
     </footer>
 
@@ -104,47 +117,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.44.0/codemirror.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.44.0/mode/javascript/javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.44.0/addon/scroll/simplescrollbars.min.js"></script>
-    <script>
-        Split(['.editors', '.output'], {
-            sizes: [75, 25],
-            minSize: 40,
-            direction: 'vertical'
-        })
-
-        Split(['.specification', '.under-test-code', '.test-code'], {
-            sizes: [34, 33, 33],
-            minSize: 0,
-            direction: 'horizontal'
-        })
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script>
-      document.querySelector('.specification-content > div').innerHTML =
-        marked('## Array Sum\n\n### Task\n\nYour task is to create a module which exposes a single function capable of summing the elements of an array.\n\nThe function should have the following signature:\n~~~~JavaScript\nfunction sum(array: number[]): number\n~~~~\n\n### Behaviour\n\nThe exposed function should have the following characteristics:\n\n  * if the passed argument is not an array, then it should return zero,\n  * if the passed argument is an array, but it contains non-number elements, then it should return zero,\n  * otherwise, it shoudl return the sum of the array elements.\n\n### Examples\n\n~~~~JavaScript\nsum(null);\n// returns 0\n\nsum([]);\n// returns 0\n\nsum("Hello!");\n//returns 0\n\nsum([0, 1, "Hello"]);\n//returns 0\n\nsum([1, 2, 3])\n//returns 6\n~~~~');
-    </script>
-    <script>
-        var cm1 = CodeMirror(document.querySelector('.under-test-code'), {
-            value: "function arraySum(array) {\n    return array.reduce((acc, curr) => acc + curr, 0);\n};\n\nmodule.exports = arraySum;\n",
-            mode:  "javascript",
-            lineNumbers: true,
-            scrollbarStyle: 'simple',
-            readOnly: true
-        });
-
-        var cm2 = CodeMirror(document.querySelector('.test-code'), {
-            value: "module.exports = function test(solution) {\n    return solution([10, 90]);\n};\n",
-            mode:  "javascript",
-            lineNumbers: true,
-            scrollbarStyle: 'simple'
-        });
-
-        var cm3 = CodeMirror(document.querySelector('.output'), {
-            value: "TEST CASE FAILURE\n\nReason: Correct and SUT result are the same.\nResult: 100\n\nVerdict: Try again.\n----------------------------\n",
-            scrollbarStyle: 'simple',
-            mode: null,
-            readOnly: true
-        });
-    </script>
+    <script th:src="@{/js/game/fault-seeding.js}"></script>
 </body>
 
 </html>
