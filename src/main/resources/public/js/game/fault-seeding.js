@@ -21,11 +21,14 @@
         INCORRECT_SUBMISSION: 'fault-seeding-incorrect-submission',
         TASK_STEP: 'fault-seeding-task-step',
         SUBMISSION_NOT_ACCEPTED: 'fault-seeding-submission-not-accepted',
-        POST_SUBMISSION: 'post-fault-seeding-submission'
+        POST_SUBMISSION: 'post-fault-seeding-submission',
+        MATCH_STARTING: 'fault-seeding-match-starting',
+        MATCH_OVER: 'fault-seeding-match-over'
     });
 
     const messageHandlers = Object.freeze({
-        [Actions.TASK_STEP]: handleTaskStep
+        [Actions.TASK_STEP]: handleTaskStep,
+        [Actions.MATCH_STARTING]: handleMatchStarting
     });
 
     const components = {
@@ -93,8 +96,6 @@
         setupWebSocket();
 
         setupSubmit();
-
-        login();
     };
 
     function setupSplit() {
@@ -113,7 +114,7 @@
 
     function setupCodeMirror() {
         const defaultOptions = {
-            value: state.underTestCode,
+            value: '',
             mode:  "javascript",
             lineNumbers: true,
             scrollbarStyle: 'simple',
@@ -136,6 +137,8 @@
 
         ws.addEventListener('open', () => {
             console.log('WebSocket connection established.');
+
+            login();
         });
 
         ws.addEventListener('message', event => {
@@ -143,7 +146,7 @@
 
             console.log('Message received', message);
 
-            messageHandlers[message.action](message);
+            messageHandlers[message.action] && messageHandlers[message.action](message);
         });
     };
 
@@ -168,7 +171,7 @@
     function send(message) {
         console.log('Sending message', message);
 
-        ws.send(JSON.stringify(hello));
+        ws.send(JSON.stringify(message));
     };
 
     function onTestCodeChange(cm) {
@@ -208,10 +211,6 @@
     };
 
     function handleTaskStep({ payload }) {
-        if (!state.isStarted) {
-            startMatch();
-        }
-
         setOwnScore(payload.scores);
         setScores(payload.scores);
 
@@ -225,7 +224,7 @@
         displayUnderTestCode();
     };
 
-    function startMatch() {
+    function handleMatchStarting() {
         components.overlay.start.classList.add('hidden');
 
         state.isStarted = true;
