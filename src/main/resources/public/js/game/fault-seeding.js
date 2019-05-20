@@ -188,7 +188,7 @@
         const message = {
             action: Actions.POST_SUBMISSION,
             payload: {
-                id: generateSubmissionId,
+                id: generateSubmissionId(),
                 taskId: state.task.id,
                 code: state.testCode
             }
