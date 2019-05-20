@@ -1,4 +1,4 @@
-package com.codeosseum.ares.web.game;
+package com.codeosseum.ares.game;
 
 import com.codeosseum.ares.security.util.AuthenticationService;
 import com.codeosseum.ares.user.User;
