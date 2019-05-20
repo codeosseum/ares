@@ -12,6 +12,8 @@ public final class Views {
 
         public static final String MATCHMAKING = PREFIX + "/matchmaking";
 
+        public static final String FAULT_SEEDING = PREFIX + "/fault-seeding";
+
         private Game() {
             // Cannot be constructed.
         }
