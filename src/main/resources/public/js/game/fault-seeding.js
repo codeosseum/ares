@@ -75,7 +75,8 @@
             testCode: {
                 container: el('.test-code'),
                 content: el('.test-code'),
-            }
+            },
+            output: el('.output')
         },
         output: el('.output'),
         leaderboard: el('.leaderboard'),
