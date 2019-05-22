@@ -19,6 +19,7 @@
         EVALUATION_ERROR: 'fault-seeding-evaluation-error',
         ERRONEOUS_SUBMISSION: 'fault-seeding-erroneous-submission',
         INCORRECT_SUBMISSION: 'fault-seeding-incorrect-submission',
+        CORRECT_SUBMISSION: 'fault-seeding-correct-submission',
         TASK_STEP: 'fault-seeding-task-step',
         SUBMISSION_NOT_ACCEPTED: 'fault-seeding-submission-not-accepted',
         POST_SUBMISSION: 'post-fault-seeding-submission',
@@ -27,9 +28,29 @@
     });
 
     const messageHandlers = Object.freeze({
+        [Actions.EVALUATION_ERROR]: handleEvaluationError,
+        [Actions.ERRONEOUS_SUBMISSION]: handleErroneousSubmission,
+        [Actions.INCORRECT_SUBMISSION]: handleIncorrectSubmission,
+        [Actions.CORRECT_SUBMISSION]: handleCorrectSubmission,
         [Actions.TASK_STEP]: handleTaskStep,
         [Actions.MATCH_STARTING]: handleMatchStarting
     });
+
+    function handleEvaluationError() {
+        appendOutput('\nEVALUATION ERROR\n\nReason: An error occurred when evaluating your submission.\n');
+    };
+
+    function handleErroneousSubmission({ payload }) {
+        appendOutput('\nERRONEOUS SUBMISSION\n\nReason: An error occurred when evaluating your submission.\nDetails:\n' + payload.output + '\n');
+    };
+
+    function handleIncorrectSubmission({ payload }) {
+        appendOutput('\nTEST CASE FAILURE\n\nReason: Correct and Under Test output are the same\nOutput: ' + payload.output + '\n');
+    };
+
+    function handleCorrectSubmission({ payload }) {
+        appendOutput('\nTEST CASE SUCCESS\n\nReason: Different Correct and Under Test output found!\nExpected: ' + payload.expectedOutput + '\nActual: ' + payload.actualOutput + '\n');
+    };
 
     const components = {
         overlay: {
@@ -217,11 +238,14 @@
         setTask(payload.nextTask);
         setTestCode(STARTER_CODE);
 
+        appendOutput('NEW TASK\n\nTitle: ' + payload.nextTask.title + '\n')
+
         displayLeaderboard();
         displayPlace();
         displayPoints();
         displaySpecification();
         displayUnderTestCode();
+        displayTestCode();
     };
 
     function handleMatchStarting() {
@@ -269,6 +293,10 @@
         code.underTestCode.getDoc().setValue(state.task.code);
     };
 
+    function displayTestCode() {
+        code.testCode.getDoc().setValue(state.testCode);
+    }
+
     function formatScore(score, index) {
         return `
         <div class="leaderboard-entry">
@@ -306,6 +334,17 @@
 
     function setTestCode(testCode) {
         state.testCode = testCode;
+    };
+
+    function appendOutput(text) {
+        state.output += text;
+
+        const doc = code.output.getDoc();
+
+        doc.replaceRange(text, {
+            line: doc.lastLine(),
+            ch: 0
+        })
     };
 
     function sortScores(scores) {
