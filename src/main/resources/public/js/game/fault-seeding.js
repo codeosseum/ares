@@ -33,7 +33,8 @@
         [Actions.INCORRECT_SUBMISSION]: handleIncorrectSubmission,
         [Actions.CORRECT_SUBMISSION]: handleCorrectSubmission,
         [Actions.TASK_STEP]: handleTaskStep,
-        [Actions.MATCH_STARTING]: handleMatchStarting
+        [Actions.MATCH_STARTING]: handleMatchStarting,
+        [Actions.MATCH_OVER]: handleMatchOver
     });
 
     function handleEvaluationError() {
@@ -54,7 +55,8 @@
 
     const components = {
         overlay: {
-            start: el('.start-overlay')
+            start: el('.start-overlay'),
+            over: el('.over-overlay')
         },
         info: {
             points: el('.info > .points'),
@@ -78,9 +80,14 @@
             },
             output: el('.output')
         },
+        finalScore: {
+            title: el('.final-score-heading > h1'),
+            table: el('.final-score-table > tbody')
+        },
         output: el('.output'),
         leaderboard: el('.leaderboard'),
-        submit: el('.submit-button')
+        submit: el('.submit-button'),
+        quit: el('.quit-button')
     };
 
     const code = {
@@ -119,6 +126,8 @@
         setupWebSocket();
 
         setupSubmit();
+
+        setupQuit();
     };
 
     function setupSplit() {
@@ -177,6 +186,10 @@
         components.submit.addEventListener('click', onSubmitClick);
     };
 
+    function setupQuit() {
+        components.quit.addEventListener('click', onQuitClick);
+    };
+
     function login() {
         console.log('Logging in');
 
@@ -205,6 +218,12 @@
 
     function onSubmitClick() {
         submitTestCode();
+    };
+
+    function onQuitClick() {
+        window.sessionStorage.removeItem('match');
+
+        window.location = '/game';
     };
 
     function submitTestCode() {
@@ -260,6 +279,14 @@
         tickHandle = setInterval(tick, 1000);
     };
 
+    function handleMatchOver({ payload }) {
+        console.log(payload);
+
+        state.finalScore = payload.finalScore;
+
+        displayFinalScore();
+    };
+
     function tick() {
         const elapsedMilliseconds = Date.now() - state.startTime;
 
@@ -304,7 +331,52 @@
 
     function displayTestCode() {
         code.testCode.getDoc().setValue(state.testCode);
-    }
+    };
+
+    function displayFinalScore() {
+        components.overlay.over.classList.remove('hidden');
+
+        displayFinalScoreTitle();
+
+        displayFinalScoreRows();
+    };
+
+    function displayFinalScoreTitle() {
+        if (state.finalScore.result == 'DRAW') {
+            components.finalScore.title.textContent = 'Draw'
+        }
+
+        if (state.finalScore.result == 'WIN') {
+            if (state.finalScore.result.includes(state.username)) {
+                components.finalScore.title.textContent = 'Nicely done, you won!'
+            } else {
+                components.finalScore.title.textContent = 'Unfortunately, you lost.'
+            }
+        }
+    };
+
+    function displayFinalScoreRows() {
+        const tableRows = state.finalScore.ranking
+            .map((position, index) => {
+                return position.players
+                    .map(player => ({
+                        place: index + 1,
+                        username: player,
+                        score: position.score
+                    }));
+            })
+            .reduce((acc, curr) => acc.concat(curr), [])
+            .map(({ place, username, score }) => `
+                <tr>
+                    <td>${place}.</td>
+                    <td class="username-column">${username}</td>
+                    <td>${score} points</td>
+                </tr>
+            `)
+            .join('');
+        
+        components.finalScore.table.innerHTML = tableRows;
+    };
 
     function formatScore(score, index) {
         return `

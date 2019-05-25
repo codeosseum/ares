@@ -166,7 +166,7 @@ main {
     overflow-y: auto;
 }
 
-.specification > .specification-content > div > h2:first-child {
+.specification > .specification-content > div > h1:first-child {
     margin-top:0;
 }
 
@@ -205,6 +205,11 @@ footer {
     display: flex;
     align-items: center;
     border-left: 2.5px solid #ddd;
+}
+
+.submit-button:hover {
+	cursor: pointer;
+	background: #dae9d9;
 }
 
 .submit-button > img {
@@ -263,6 +268,63 @@ footer {
 
 .status-box-text {
     font-size: 1.777em;
+}
+
+.over-overlay > .wrap {
+    min-width: 33%;
+}
+
+.final-score-box {
+	background: #ffffff;
+	color: black;
+	box-shadow: 0px 7px 7px 2px rgba(0, 0, 0, 0.2);
+}
+
+.final-score-heading {
+	background: #702412;
+	color: white;
+	padding: 1em;
+}
+
+.final-score-heading > h1 {
+	font-weight: lighter;
+	margin: 0;
+}
+
+.final-score-content {
+    padding: 1em;
+}
+
+.final-score-table {
+    width: 100%;
+    font-size: 1.333em;
+}
+
+.final-score-table td {
+    padding: 5px;
+}
+
+.final-score-table .username-column {
+    text-align: center;
+}
+
+.final-score-footer {
+	display: flex;
+	justify-content: flex-end;
+	padding: 1em;
+}
+
+.quit-button {
+	padding: 0.5em 1em;
+	font-size: 1.333em;
+	background: #cc972d;
+	box-shadow: 0px 7px 7px 2px rgba(0, 0, 0, 0.2);
+	color: white;
+}
+
+.quit-button:hover {
+    cursor: pointer;
+    box-shadow: 0px 7px 7px 2px #cc972daa;
 }
 
 .match-action-button {
