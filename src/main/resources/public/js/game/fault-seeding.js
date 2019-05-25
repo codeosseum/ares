@@ -107,6 +107,7 @@
         output: '',
         startTime: null,
         elapsedSeconds: 0,
+        runtime: 0,
         isStarted: false
     };
 
@@ -249,9 +250,10 @@
         displayTestCode();
     };
 
-    function handleMatchStarting() {
+    function handleMatchStarting({ payload }) {
         components.overlay.start.classList.add('hidden');
 
+        state.runtime = payload.runtime;
         state.isStarted = true;
         state.startTime = Date.now();
 
@@ -259,7 +261,7 @@
     };
 
     function tick() {
-        const elapsedMilliseconds = Date.now() - state.startTime;
+        const elapsedMilliseconds = Math.max(0, Date.now() - state.startTime);
 
         state.elapsedSeconds = Math.trunc(elapsedMilliseconds / 1000);
 
@@ -267,7 +269,9 @@
     };
 
     function displayTimer() {
-        components.info.timer.textContent = state.elapsedSeconds;
+        const remainingSeconds = state.runtime - state.elapsedSeconds;
+
+        components.info.timer.textContent = formatTimeInSeconds(remainingSeconds);
     };
 
     function displayPoints() {
@@ -357,5 +361,17 @@
         return Object.keys(scores)
             .map(k => ({ username: k, score: scores[k] }))
             .sort((a, b) => b.score - a.score);
+    };
+
+    function formatTimeInSeconds(time) {
+        const SECONDS_IN_A_MINUTE = 60;
+    
+        const minutes = Math.floor(time / SECONDS_IN_A_MINUTE);
+        const seconds = time - minutes * SECONDS_IN_A_MINUTE;
+    
+        const paddedMinutes = minutes >= 10 ? minutes : `0${minutes}`;
+        const paddedSeconds = seconds >= 10 ? seconds : `0${seconds}`;
+        
+        return `${paddedMinutes}:${paddedSeconds}`;
     };
 })();
