@@ -345,7 +345,12 @@
         doc.replaceRange(text, {
             line: doc.lastLine(),
             ch: 0
-        })
+        });
+
+        code.output.scrollIntoView({
+            line: doc.lastLine(),
+            ch: 0
+        });
     };
 
     function sortScores(scores) {
