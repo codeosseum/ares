@@ -66,7 +66,7 @@
             specification: {
                 container: el('.specification'),
                 content: el('.specification-content > div'),
-                title: el('.editor-pane-title > h2')
+                mdTitle: () => el('.specification > .specification-content > div > h1:first-child')
             },
             underTestCode: {
                 container: el('.under-test-code'),
@@ -261,11 +261,15 @@
     };
 
     function tick() {
-        const elapsedMilliseconds = Math.max(0, Date.now() - state.startTime);
+        const elapsedMilliseconds = Date.now() - state.startTime;
 
         state.elapsedSeconds = Math.trunc(elapsedMilliseconds / 1000);
 
-        displayTimer();
+        if (state.elapsedSeconds > state.runtime) {
+            clearInterval(tickHandle);
+        } else {
+            displayTimer();
+        }
     };
 
     function displayTimer() {
@@ -288,10 +292,10 @@
             .join('');
     };
 
-    function displaySpecification() {
-        components.editors.specification.title.textContent = state.task.title;
-        
+    function displaySpecification() {        
         components.editors.specification.content.innerHTML = marked(state.task.description);
+
+        components.editors.specification.mdTitle().style.marginTop = 0;
     };
 
     function displayUnderTestCode() {
