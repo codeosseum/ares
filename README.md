@@ -6,6 +6,7 @@
 
 <div align="center">
 
+[![Build Status](https://dev.azure.com/codeosseum/Ares/_apis/build/status/codeosseum.ares?branchName=master)](https://dev.azure.com/codeosseum/Ares/_build/latest?definitionId=1&branchName=master)
 [![License](https://img.shields.io/github/license/codeosseum/ares.svg?label=license)](LICENSE)
 
 </div>
