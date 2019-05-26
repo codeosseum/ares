@@ -347,7 +347,7 @@
         }
 
         if (state.finalScore.result == 'WIN') {
-            if (state.finalScore.result.includes(state.username)) {
+            if (state.finalScore.winners.includes(state.username)) {
                 components.finalScore.title.textContent = 'Nicely done, you won!'
             } else {
                 components.finalScore.title.textContent = 'Unfortunately, you lost.'
