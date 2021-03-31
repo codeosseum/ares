@@ -42,7 +42,7 @@
         <!-- DEPENDENCY VERSIONS -->
         <eligo.version>0.2.0</eligo.version>
         <lombok.version>1.18.4</lombok.version>
-        <guava.version>27.0.1-jre</guava.version>
+        <guava.version>29.0-jre</guava.version>
 
         <!-- PLUGIN VERSIONS -->
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
